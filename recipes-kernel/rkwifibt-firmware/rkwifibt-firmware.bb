@@ -41,6 +41,7 @@ PACKAGES =+ " \
 	${PN}-ap6398s-wifi \
 	${PN}-ap6398s-bt \
 	${PN}-rtl8723ds-bt \
+	${PN}-rtl8822cs-bt \
 "
 
 FILES:${PN}-ap6181-wifi = " \
@@ -123,6 +124,11 @@ FILES:${PN}-ap6398s-bt = " \
 FILES:${PN}-rtl8723ds-bt = " \
 	lib/firmware/rtlbt/rtl8723d_config \
 	lib/firmware/rtlbt/rtl8723d_fw \
+"
+
+FILES:${PN}-rtl8822cs-bt = " \
+	lib/firmware/rtlbt/rtl8822cs_config \
+	lib/firmware/rtlbt/rtl8822cs_fw \
 "
 
 FILES:${PN} = "*"
