@@ -17,11 +17,11 @@ PV = "2017.09"
 
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 
-SRCREV = "1605e9e8fb52503209543a16b5d8c6908d1064f7"
-SRCREV_rkbin = "104659686b734ab041ef958c0abece1a250f48a4"
+SRCREV = "da8563ae1ef4ae5f1959c228bef2cf99886fc71c"
+SRCREV_rkbin = "1a417bbf7d05c3491ee9613be12a9905fbb8ccb7"
 SRC_URI = " \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=u-boot; \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=rkbin;name=rkbin;destsuffix=rkbin; \
+	git://github.com/vicharak-in/u-boot-vicharak;protocol=https;branch=master; \
+	git://github.com/vicharak-in/rkbin-vicharak;protocol=https;branch=master;name=rkbin;destsuffix=rkbin; \
 "
 
 SRCREV_FORMAT = "default_rkbin"
@@ -74,7 +74,7 @@ do_compile:append() {
 		ln -sf ${B}/prebuilt/*.bin ${B}/prebuilt/*.img ${B}/
 	else
 		# Prepare needed files
-		for d in make.sh scripts configs arch/arm/mach-rockchip; do
+		for d in make.sh rkbin scripts configs arch/arm/mach-rockchip; do
 			cp -rT ${S}/${d} ${d}
 		done
 
@@ -86,16 +86,16 @@ do_compile:append() {
 
 	# Generate idblock image
 	bbnote "${PN}: Generating ${RK_IDBLOCK_IMG} from ${RK_LOADER_BIN}"
-	./tools/boot_merger --unpack "${RK_LOADER_BIN}"
+	./rkbin/tools/boot_merger unpack -i "${RK_LOADER_BIN}" -o .
 
-	if [ -f FlashHead ];then
-		cat FlashHead FlashData > "${RK_IDBLOCK_IMG}"
+	if [ -f FlashHead.bin ];then
+		cat FlashHead.bin FlashData.bin > "${RK_IDBLOCK_IMG}"
 	else
-		./tools/mkimage -n "${SOC_FAMILY}" -T rksd -d FlashData \
+		./rkbin/tools/mkimage -n "${SOC_FAMILY}" -T rksd -d FlashData.bin \
 			"${RK_IDBLOCK_IMG}"
 	fi
 
-	cat FlashBoot >> "${RK_IDBLOCK_IMG}"
+	cat FlashBoot.bin >> "${RK_IDBLOCK_IMG}"
 }
 
 do_deploy:append() {
