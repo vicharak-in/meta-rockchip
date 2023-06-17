@@ -6,9 +6,11 @@ require linux-rockchip.inc
 
 inherit local-git
 
-SRCREV = "9789c7416f009b1c7a064241a5f185b368b24732"
+SRCREV = "0b91897440fd55f9b1fa1b3da2e8bb08e1871def"
+
 SRC_URI = " \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;nobranch=1;branch=kernel-4.19-2022_11_23; \
+	git://github.com/UtsavBalar1231/kernel_rockchip_linux;protocol=https;branch=vaaman-4.19; \
+	file://${THISDIR}/files/rk3399_vaaman.cfg \
 	file://${THISDIR}/files/cgroups.cfg \
 "
 
