@@ -1,165 +1,155 @@
-# meta-rockchip
+# meta-rockchip (Vicharak)
 
-Yocto BSP layer for the Rockchip SOC boards
-  - wiki <http://opensource.rock-chips.com/wiki_Main_Page>.
-
-This README file contains information on building and booting the meta-rockchip BSP layers.
-
-Please see the corresponding sections below for details.
+Welcome to the meta-rockchip Yocto BSP layer for Vicharak SBC boards.
+This README provides information on building and booting with this layer.
 
 ## Dependencies
 
-This layer depends on:
+This layer depends on the following components:
 
-* URI: git://git.yoctoproject.org/poky
-* branch: honister
+- **Yocto Project Poky Layer**:
+  - URI: git://git.yoctoproject.org/poky
+  - Branch: honister
 
-* URI: git://git.openembedded.org/meta-openembedded
-* layers: meta-oe
-* branch: honister
+- **OpenEmbedded Layer**:
+  - URI: git://git.openembedded.org/meta-openembedded
+  - Layers: meta-oe
+  - Branch: honister
 
 ## Table of Contents
 
-I. Configure yocto/oe Environment
+- I. Configure Yocto/OE Environment
+- II. Building meta-rockchip BSP Layers
+- III. Booting Your Device
 
-II. Building meta-rockchip BSP Layers
+### I. Configure Yocto/OE Environment
 
-III. Booting your Device
+To build an image with BSP support for a specific release, follow these steps:
 
-IV. Tested Hardwares
+1. Create a directory for your Yocto environment and navigate to it:
 
-V. Supporting new Machine
+   ```shell
+   mkdir yocto; cd yocto
+   ```
 
-### I. Configure yocto/oe Environment
+2. Clone the Yocto Poky layer:
 
-In order to build an image with BSP support for a given release, you need to download the corresponding layers described in the "Dependencies" section. Be sure that everything is in the same directory.
+   ```shell
+   git clone git://git.yoctoproject.org/poky -b honister
+   ```
 
-```shell
-~ $ mkdir yocto; cd yocto
-~/yocto $ git clone git://git.yoctoproject.org/poky -b honister
-~/yocto $ git clone git://git.openembedded.org/meta-openembedded.git -b honister
-```
+3. Clone the OpenEmbedded layer:
 
-And put the meta-rockchip layer here too.
+   ```shell
+   git clone git://git.openembedded.org/meta-openembedded -b honister
+   ```
 
-Then you need to source the configuration script:
+4. Place the `meta-rockchip` layer in the same directory.
 
-```shell
-~/yocto $ source poky/oe-init-build-env
-```
+   ```shell
+   git clone https://github.com/vicharak-in/meta-rockchip -b honister
+   ```
 
-Having done that, you can build a image for a rockchip board by adding the location of the meta-rockchip layer to bblayers.conf, along with any other layers needed.
+5. Source the configuration script:
 
-For example:
+   ```shell
+   source oe-init-build-env
+   ```
 
-```makefile
-# build/conf/bblayers.conf
-BBLAYERS ?= " \
-  ${TOPDIR}/../meta-rockchip \
-  ${TOPDIR}/../poky/meta \
-  ${TOPDIR}/../poky/meta-poky \
-  ${TOPDIR}/../poky/meta-yocto-bsp \
-  ${TOPDIR}/../meta-openembedded/meta-oe \
-```
+6. Ensure that your `bblayers.conf` file includes the location of the
+   **meta-rockchip** layer along with other required layers.
 
-To enable a particular machine, you need to add a MACHINE line naming the BSP to the local.conf file:
+> [!NOTE]
+> Example `conf/bblayers.conf`:
+>
+> ```Makefile
+> BBLAYERS ?= " \
+>   ${TOPDIR}/../meta-arm/meta-arm \
+>   ${TOPDIR}/../meta-arm/meta-arm-toolchain \
+>   ${TOPDIR}/../meta-openembedded/meta-networking \
+>   ${TOPDIR}/../meta-openembedded/meta-oe \
+>   ${TOPDIR}/../meta-openembedded/meta-python \
+>   ${TOPDIR}/../meta-rockchip \
+>   ${TOPDIR}/../openembedded-core/meta \
+>   "
+> ```
 
-```makefile
-  MACHINE = "xxx"
-```
+7. To enable a specific machine, add a `MACHINE` line to your `local.conf` file.
 
-All supported machines can be found in meta-rockchip/conf/machine.
+> [!NOTE]
+> You can find the list of supported machines in the `meta-rockchip/conf/machine`
+>
+> Example `conf/local.conf`:
+>
+> ```Makefile
+> MACHINE ?= "rk3399-vaaman"
+> ```
+
+8. Enable systemd in your Yocto configuration by adding the following to your
+   `local.conf` file
+
+> [!NOTE]
+> Example `conf/local.conf`:
+>
+> ```Makefile
+> INIT_MANAGER = "systemd"
+> ```
 
 ### II. Building meta-rockchip BSP Layers
 
-You should then be able to build a image as such:
+Once your environment is configured, you can build an image as follows:
 
 ```shell
-$ bitbake core-image-minimal
+bitbake core-image-full-cmdline
 ```
 
-At the end of a successful build, you should have an .wic image in `/path/to/yocto/build/tmp/deploy/images/<MACHINE>/`, also with an rockchip firmware image: `update.img`.
+> [!NOTE]
+> The list of buildable targets are:
+>
+> ```text
+> core-image-minimal
+> core-image-full-cmdline
+> core-image-sato
+> core-image-weston
+> meta-toolchain
+> meta-ide-support
+> ```
 
-### III. Booting your Device
+After a successful build, you will find the resulting `.wic` image in
+`/path/to/yocto/build/tmp/deploy/images/<MACHINE>/`, along with a Rockchip
+firmware image named `update.img`.
 
-Under Linux, you can use upgrade_tool: <http://opensource.rock-chips.com/wiki_Upgradetool> to flash the image:
+### III. Booting Your Device
 
-1. Put your device into rockusb mode: <http://opensource.rock-chips.com/wiki_Rockusb>
+To boot your device under Linux, you can use `Rockchip upgrade_tool`.
+Here are the steps:
 
-2. If it's maskrom rockusb mode, try to enter miniloader rockusb mode:
+1. Put your device into Rockusb or Maskrom mode. [Learn more](http://docs.vicharak.in/vaaman-maskrom-mode.html)
+
+> [!NOTE]
+> If your device is in maskrom Rockusb mode, try entering miniloader Rockusb mode:
+>
+> ```shell
+> sudo upgrade_tool db <image_path>/loader.bin
+> ```
+
+2. Flash the firmware image:
+
+Flash the image (either the `.wic` image or the Rockchip
+firmware image `update.img`) to your device.:
+
+For `.wic` image:
 
 ```shell
-$ sudo upgrade_tool db <IMAGE PATH>/loader.bin
+sudo upgrade_tool wl 0 <path/to/yocto/build/tmp/deploy/images/<MACHINE>/<IMAGE_NAME>.wic
 ```
 
-3. Flash the image (wic image or rockchip firmware image)
+For Rockchip firmware image:
 
 ```shell
-$ sudo upgrade_tool wl 0 <IMAGE PATH>/<IMAGE NAME>.wic # For wic image
+sudo upgrade_tool wl 0 <path/to/yocto/build/tmp/deploy/images/<MACHINE>/update.img
 ```
 
-```shell
-$ sudo upgrade_tool uf <IMAGE PATH>/update.img # For rockchip firmware image
-```
+## License
 
-### IV. Tested Hardwares
-
-The following undergo regular basic testing with their respective MACHINE types.
-
-* px3se evb board
-
-* rk3308 evb board
-
-* rk3326 evb board
-
-* px30 evb board
-
-* rk3328 evb board
-
-* rk3288 evb board
-
-* rk3399 sapphire excavator board
-
-* rk3399pro evb board
-
-### V. Supporting new Machine
-
-To support new machine, you can either add new machine config in meta-rockchip/conf/machine, or choose a similar existing machine and override it's configurations in local config file.
-
-In general, a new machine needs to specify it's u-boot config, kernel config, kernel device tree and wifi/bt firmware:
-
-For example:
-
-```makefile
-KBUILD_DEFCONFIG = "rk3326_linux_defconfig"
-KERNEL_DEVICETREE = "rockchip/rk3326-evb-lp3-v10-linux.dtb"
-UBOOT_MACHINE = "evb-rk3326_defconfig"
-RK_WIFIBT_FIRMWARES = " \
-        rkwifibt-firmware-ap6212a1-wifi \
-        rkwifibt-firmware-ap6212a1-bt \
-        brcm-tools \
-"
-```
-
-If you want to use your own local u-boot and kernel sources, a simple way is to override related configurations in local config file.
-
-For example using the kernel/ and u-boot/ in the same directory of meta-rockchip:
-
-```makefile
-# build/conf/local.conf
-SRC_URI:pn-linux-rockchip = " \
-        git://${TOPDIR}/../kernel;protocol=file;usehead=1 \
-        file://cgroups.cfg \
-"
-SRCREV:pn-linux-rockchip = "${AUTOREV}"
-KBRANCH = "HEAD"
-
-SRC_URI:pn-u-boot = " \
-        git://${TOPDIR}/../u-boot;protocol=file;usehead=1 \
-"
-SRCREV:pn-u-boot = "${AUTOREV}"
-```
-
-## Maintainers
-
-* Jeffy Chen `<jeffy.chen@rock-chips.com>`
+[MIT License](./LICENSE)
