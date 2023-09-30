@@ -1,0 +1,13 @@
+[Unit]
+Description=Realtek H5 bluetooth start script
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/vaaman-bt-start
+ExecStop=/usr/bin/killall rtk_hciattach
+Restart=on-failure
+RestartSec=2
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target

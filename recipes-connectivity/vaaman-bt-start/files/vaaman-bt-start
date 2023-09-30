@@ -1,0 +1,21 @@
+#!/bin/sh
+
+die_on_error() {
+	if [ ! $? = 0 ]; then
+		echo "$1"
+		exit 1
+	fi
+}
+
+TTY_NODE="/dev/ttyS0"
+
+# Kill any rtk_hciattach actually running.
+# Do not complain if we didn't kill anything.
+killall -q -SIGTERM rtk_hciattach
+
+/usr/sbin/rfkill block bluetooth || die_on_error "Could not block bluetooth"
+sleep 1
+/usr/sbin/rfkill unblock bluetooth || die_on_error "Could not unblock bluetooth"
+sleep 0.5
+
+/usr/bin/rtk_hciattach -n -s 115200 $TTY_NODE rtk_h5 2>&1 || die_on_error "Could not create hci0 through rtk_hciattach"
