@@ -12,5 +12,35 @@ EXTRA_IMAGE_FEATURES += "package-management"
 IMAGE_INSTALL:append = "gnupg"
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
-    rk-resize-helper \
+	drm-cursor \
+	exfat-utils \
+	fuse-exfat \
+	gptfdisk \
+	ntfs-3g \
+	ntp \
+	parted \
+	pciutils \
+	rk-resize-helper \
+	usbutils \
+	vim \
+"
+
+IMAGE_INSTALL:append = " \
+	bash-completion \
+	curl \
+	ethtool \
+	evtest \
+	git \
+	glibc-gconv-utf-16 \
+	i2c-tools \
+	iperf3 \
+	libgpiod \
+	networkmanager \
+	networkmanager-nmcli \
+	networkmanager-nmtui \
+	ntpdate \
+	packagegroup-tools-bluetooth \
+	pm-utils \
+	python3 \
+	python3-pip \
 "
