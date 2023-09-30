@@ -10,3 +10,7 @@ EXTRA_IMAGE_FEATURES += "package-management"
 
 # Enable gnupg support
 IMAGE_INSTALL:append = "gnupg"
+
+MACHINE_EXTRA_RRECOMMENDS:append = " \
+    rk-resize-helper \
+"
