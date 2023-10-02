@@ -38,14 +38,12 @@ MACHINE_EXTRA_RRECOMMENDS:append = " \
 	pciutils \
 	rk-resize-helper \
 	usbutils \
-	vicharak-config \
 	vim \
 "
 
 IMAGE_INSTALL:append = " \
 	bash-completion \
 	curl \
-	dtc \
 	ethtool \
 	evtest \
 	git \
@@ -53,7 +51,6 @@ IMAGE_INSTALL:append = " \
 	i2c-tools \
 	iperf3 \
 	libgpiod \
-	ncurses \
 	networkmanager \
 	networkmanager-nmcli \
 	networkmanager-nmtui \
@@ -62,5 +59,4 @@ IMAGE_INSTALL:append = " \
 	pm-utils \
 	python3 \
 	python3-pip \
-	whiptail \
 "
