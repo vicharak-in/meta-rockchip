@@ -17,7 +17,7 @@ PV = "2017.09"
 
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 
-SRCREV = "da8563ae1ef4ae5f1959c228bef2cf99886fc71c"
+SRCREV = "c59002145fc08c5a6d8b8eff1b043d2d73db62b4"
 SRCREV_rkbin = "1a417bbf7d05c3491ee9613be12a9905fbb8ccb7"
 SRC_URI = " \
 	git://github.com/vicharak-in/u-boot-vicharak;protocol=https;branch=master; \
