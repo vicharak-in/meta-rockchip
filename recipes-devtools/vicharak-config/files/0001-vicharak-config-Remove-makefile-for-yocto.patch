@@ -1,0 +1,113 @@
+From 5cabe34f7a0a61de9d0862f47e9a289896d741b0 Mon Sep 17 00:00:00 2001
+From: UtsavBalar1231 <utsavbalar1231@gmail.com>
+Date: Sat, 30 Sep 2023 17:35:39 +0530
+Subject: [PATCH] vicharak-config: Remove makefile for yocto
+
+Change-Id: I24a294aa8315042f7605f763665680adbeac1b17
+Signed-off-by: UtsavBalar1231 <utsavbalar1231@gmail.com>
+---
+ Makefile | 92 --------------------------------------------------------
+ 1 file changed, 92 deletions(-)
+ delete mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+deleted file mode 100644
+index e7c17f5..0000000
+--- a/Makefile
++++ /dev/null
+@@ -1,92 +0,0 @@
+-PROJECT ?= vicharak-config
+-PREFIX ?= /usr
+-BINDIR ?= $(PREFIX)/bin
+-LIBDIR ?= $(PREFIX)/lib
+-MANDIR ?= $(PREFIX)/share/man
+-
+-.PHONY: all
+-all: build
+-
+-#
+-# Development
+-#
+-
+-.PHONY: run
+-run:
+-	src/usr/bin/vicharak-config
+-
+-.PHONY: debug
+-debug: sudo bash -c "DEBUG=true /usr/bin/vicharak-config"
+-
+-.PHONY: shell
+-shell: bash
+-
+-#
+-# Test
+-#
+-.PHONY: test
+-test:
+-	find src -type f \( -name "*.sh" -o -name "vicharak-config" \) -exec shellcheck -e SC1090 --source-path=./src --external-sources {} +
+-
+-#
+-# Build
+-#
+-.PHONY: build
+-build: build-man build-doc
+-
+-SRC-MAN		:=	src/usr/share/man/man8
+-SRCS-MAN	:=	$(wildcard $(SRC-MAN)/*.md)
+-MANS		:=	$(SRCS-MAN:.md=)
+-.PHONY: build-man
+-build-man: $(MANS)
+-
+-$(SRC-MAN)/%: $(SRC-MAN)/%.md
+-	pandoc "$<" -o "$@" --from markdown --to man -s
+-
+-SRC-DOC		:=	src
+-DOCS		:=	$(SRC-DOC)/SOURCE
+-.PHONY: build-doc
+-build-doc: $(DOCS)
+-
+-$(SRC-DOC):
+-	mkdir -p $(SRC-DOC)
+-
+-.PHONY: $(SRC-DOC)/SOURCE
+-$(SRC-DOC)/SOURCE: $(SRC-DOC)
+-	echo -e "git clone $(shell git remote get-url origin)\ngit checkout $(shell git rev-parse HEAD)" > "$@"
+-
+-#
+-# Clean
+-#
+-.PHONY: distclean
+-distclean: clean
+-
+-.PHONY: clean
+-clean: clean-man clean-doc clean-deb
+-
+-.PHONY: clean-man
+-clean-man:
+-	rm -rf $(MANS)
+-
+-.PHONY: clean-doc
+-clean-doc:
+-	rm -rf $(DOCS)
+-
+-.PHONY: clean-deb
+-clean-deb:
+-	rm -rf debian/.debhelper debian/${PROJECT} debian/debhelper-build-stamp debian/files debian/*.debhelper.log debian/*.postrm.debhelper debian/*.substvars
+-
+-#
+-# Release
+-#
+-.PHONY: dch
+-dch: debian/changelog
+-	EDITOR=true gbp dch --commit --debian-branch=main --release --dch-opt=--upstream
+-
+-.PHONY: deb
+-deb: debian
+-	debuild --no-lintian --lintian-hook "lintian --suppress-tags bad-distribution-in-changes-file -- %p_%v_*.changes" --no-sign -b
+-
+-.PHONY: release
+-release:
+-	gh workflow run .github/workflows/new_version.yml
+-- 
+2.25.1
+
