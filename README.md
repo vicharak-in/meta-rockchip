@@ -1,6 +1,7 @@
-# meta-rockchip (Vicharak)
+# meta-rockchip (Yocto BSP layer for Vicharak SBC boards)
 
 Welcome to the meta-rockchip Yocto BSP layer for Vicharak SBC boards.
+
 This README provides information on building and booting with this layer.
 
 ## Dependencies
@@ -28,33 +29,33 @@ To build an image with BSP support for a specific release, follow these steps:
 
 1. Create a directory for your Yocto environment and navigate to it:
 
-   ```shell
-   mkdir yocto; cd yocto
-   ```
+```bash
+mkdir yocto; cd yocto
+```
 
 2. Clone the Yocto Poky layer:
 
-   ```shell
-   git clone git://git.yoctoproject.org/poky -b kirkstone
-   ```
+```bash
+git clone git://git.yoctoproject.org/poky -b kirkstone
+```
 
 3. Clone the OpenEmbedded layer:
 
-   ```shell
-   git clone git://git.openembedded.org/meta-openembedded -b kirkstone
-   ```
+```bash
+git clone git://git.openembedded.org/meta-openembedded -b kirkstone
+```
 
 4. Place the `meta-rockchip` layer in the same directory.
 
-   ```shell
-   git clone https://github.com/vicharak-in/meta-rockchip -b kirkstone
-   ```
+```bash
+git clone https://github.com/vicharak-in/meta-rockchip -b kirkstone
+```
 
 5. Source the configuration script:
 
-   ```shell
-   source oe-init-build-env
-   ```
+```bash
+source oe-init-build-env
+```
 
 6. Ensure that your `bblayers.conf` file includes the location of the
    **meta-rockchip** layer along with other required layers.
@@ -63,15 +64,24 @@ To build an image with BSP support for a specific release, follow these steps:
 > Example `conf/bblayers.conf`:
 >
 > ```Makefile
+> POKY_BBLAYERS_CONF_VERSION = "2"
+>
+> BBPATH = "${TOPDIR}"
+> BBFILES ?= ""
+>
 > BBLAYERS ?= " \
->   ${TOPDIR}/../meta-arm/meta-arm \
->   ${TOPDIR}/../meta-arm/meta-arm-toolchain \
->   ${TOPDIR}/../meta-openembedded/meta-networking \
 >   ${TOPDIR}/../meta-openembedded/meta-oe \
 >   ${TOPDIR}/../meta-openembedded/meta-python \
+>   ${TOPDIR}/../meta-openembedded/meta-networking \
+>   ${TOPDIR}/../meta-openembedded/meta-filesystems \
+>   ${TOPDIR}/../meta-openembedded/meta-multimedia \
+>   ${TOPDIR}/../meta-qt5 \
+>   ${TOPDIR}/../meta-clang \
 >   ${TOPDIR}/../meta-rockchip \
->   ${TOPDIR}/../openembedded-core/meta \
->   "
+>   ${TOPDIR}/../poky/meta \
+>   ${TOPDIR}/../poky/meta-poky \
+>   ${TOPDIR}/../poky/meta-yocto-bsp \
+> "
 > ```
 
 7. To enable a specific machine, add a `MACHINE` line to your `local.conf` file.
@@ -99,7 +109,7 @@ To build an image with BSP support for a specific release, follow these steps:
 
 Once your environment is configured, you can build an image as follows:
 
-```shell
+```bash
 bitbake core-image-full-cmdline
 ```
 
@@ -129,7 +139,7 @@ Here are the steps:
 > [!NOTE]
 > If your device is in maskrom Rockusb mode, try entering miniloader Rockusb mode:
 >
-> ```shell
+> ```bash
 > sudo upgrade_tool db <image_path>/loader.bin
 > ```
 
@@ -140,13 +150,13 @@ firmware image `update.img`) to your device.:
 
 For `.wic` image:
 
-```shell
+```bash
 sudo upgrade_tool wl 0 <path/to/yocto/build/tmp/deploy/images/<MACHINE>/<IMAGE_NAME>.wic
 ```
 
 For Rockchip firmware image:
 
-```shell
+```bash
 sudo upgrade_tool wl 0 <path/to/yocto/build/tmp/deploy/images/<MACHINE>/update.img
 ```
 
