@@ -10,12 +10,12 @@ This layer depends on the following components:
 
 - **Yocto Project Poky Layer**:
   - URI: git://git.yoctoproject.org/poky
-  - Branch: kirkstone
+  - Branch: mickledore
 
 - **OpenEmbedded Layer**:
   - URI: git://git.openembedded.org/meta-openembedded
   - Layers: meta-oe
-  - Branch: kirkstone
+  - Branch: mickledore
 
 ## Table of Contents
 
@@ -36,19 +36,19 @@ mkdir yocto; cd yocto
 2. Clone the Yocto Poky layer:
 
 ```bash
-git clone git://git.yoctoproject.org/poky -b kirkstone
+git clone git://git.yoctoproject.org/poky -b mickledore
 ```
 
 3. Clone the OpenEmbedded layer:
 
 ```bash
-git clone git://git.openembedded.org/meta-openembedded -b kirkstone
+git clone git://git.openembedded.org/meta-openembedded -b mickledore
 ```
 
 4. Place the `meta-rockchip` layer in the same directory.
 
 ```bash
-git clone https://github.com/vicharak-in/meta-rockchip -b kirkstone
+git clone https://github.com/vicharak-in/meta-rockchip -b mickledore
 ```
 
 5. Source the configuration script:
