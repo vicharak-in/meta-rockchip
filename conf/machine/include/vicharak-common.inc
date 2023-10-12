@@ -54,7 +54,6 @@ IMAGE_INSTALL:append = " \
 	networkmanager \
 	networkmanager-nmcli \
 	networkmanager-nmtui \
-	ntpdate \
 	packagegroup-tools-bluetooth \
 	pm-utils \
 	python3 \
