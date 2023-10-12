@@ -68,3 +68,6 @@ VIRTUAL-RUNTIME_init_manager = "systemd"
 VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
 VIRTUAL-RUNTIME_login_manager = "shadow-base"
 VIRTUAL-RUNTIME_dev_manager = "systemd"
+
+# Enable bluetooth and wifi
+DISTRO_FEATURES:append = "bluetooth wifi"
