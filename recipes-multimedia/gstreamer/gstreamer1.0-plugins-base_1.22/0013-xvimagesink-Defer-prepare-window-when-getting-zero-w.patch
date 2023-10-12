@@ -1,8 +1,8 @@
-From fbb7606b9a8b024006f9e15716e2aa4048e02a36 Mon Sep 17 00:00:00 2001
+From 988e24a62d869362a579e8cd9458dcdd7c4d0b3f Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Thu, 9 Jun 2022 12:01:28 +0800
-Subject: [PATCH 13/14] xvimagesink: Defer prepare window when getting zero
- window handle
+Subject: [PATCH] xvimagesink: Defer prepare window when getting zero window
+ handle
 
 The window might not ready when we requesting it.
 
@@ -94,6 +94,3 @@ index 35a3081..c84eeea 100644
  };
  
  struct _GstXvImageSinkClass
--- 
-2.20.1
-

@@ -1,7 +1,7 @@
-From a8f1d680f80ab53420b0dce2c4a92242704f9e36 Mon Sep 17 00:00:00 2001
+From b6ca1c662e9705f44c01e601d02cfb5bf53b1f2f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?St=C3=A9phane=20Cerveau?= <scerveau@collabora.com>
 Date: Mon, 9 Aug 2021 15:38:08 +0200
-Subject: [PATCH 02/14] playbin2: send one about-to-finish per group
+Subject: [PATCH] playbin2: send one about-to-finish per group
 
 To avoid multiple about-to-finish signal,
 driving the app to drop uris, a group should
@@ -56,6 +56,3 @@ index d6aff0c..51751ff 100644
    GST_SOURCE_GROUP_UNLOCK (group);
  
    return state_ret;
--- 
-2.20.1
-

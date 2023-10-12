@@ -1,7 +1,7 @@
-From 042497b96f79cf0b7923b52d2dbdd6858b16bcea Mon Sep 17 00:00:00 2001
+From a79a20db0d8c7ab00d2b2389717b771c541026c8 Mon Sep 17 00:00:00 2001
 From: Jiajian Wu <jair.wu@rock-chips.com>
 Date: Tue, 11 Oct 2022 09:21:10 +0800
-Subject: [PATCH 14/14] riff: Fix bps caculation error for ADPCM
+Subject: [PATCH] riff: Fix bps caculation error for ADPCM
 
 The bps shall be caculated according to:
 ADPCM: rate * blockalign / ((blockalign - ch * 7) / ch * 2)
@@ -36,6 +36,3 @@ index 74f99d6..6298884 100644
            strf->av_bps =
                gst_util_uint64_scale_int (strf->rate, strf->blockalign, spb);
            GST_DEBUG ("fixing av_bps to calculated value %d of IMA DVI ADPCM",
--- 
-2.20.1
-

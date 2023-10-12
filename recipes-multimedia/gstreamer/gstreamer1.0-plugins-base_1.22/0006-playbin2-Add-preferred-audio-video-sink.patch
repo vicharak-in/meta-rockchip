@@ -1,7 +1,7 @@
-From 53d727ad0b15fad18df7a4f7513da2aa74932b25 Mon Sep 17 00:00:00 2001
+From e076c80763bd22310be5800b6b2bb12826872b3b Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Fri, 14 Jun 2019 12:02:05 +0800
-Subject: [PATCH 06/14] playbin2: Add preferred audio/video sink
+Subject: [PATCH] playbin2: Add preferred audio/video sink
 
 Using env "PLAYBIN2_PREFERRED_VIDEOSINK" and
 "PLAYBIN2_PREFERRED_AUDIOSINK".
@@ -81,6 +81,3 @@ index cbd8e08..8561792 100644
      /* if it is a decoder and we don't have a fixed sink, then find out
       * the matching audio/video sink from GstAVElements list */
      for (l = ave_list; l; l = l->next) {
--- 
-2.20.1
-

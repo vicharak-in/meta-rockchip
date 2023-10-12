@@ -1,7 +1,7 @@
-From 79e723dd5f024f5ea7cdd89c2f8af934c1a464d6 Mon Sep 17 00:00:00 2001
+From 3657be6934d16360871a2aadadfa2cd5790c3a8d Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Wed, 18 Mar 2020 10:12:31 +0800
-Subject: [PATCH 10/14] glupload: dmabuf: prefer DirectDmabufExternal uploader
+Subject: [PATCH] glupload: dmabuf: prefer DirectDmabufExternal uploader
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
 ---
@@ -22,6 +22,3 @@ index 2227240..39be33a 100644
    &_dma_buf_upload,
  #endif
  #if GST_GL_HAVE_VIV_DIRECTVIV
--- 
-2.20.1
-

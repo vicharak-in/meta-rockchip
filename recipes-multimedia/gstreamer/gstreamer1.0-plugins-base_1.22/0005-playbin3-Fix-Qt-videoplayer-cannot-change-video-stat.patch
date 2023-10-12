@@ -1,7 +1,7 @@
-From c6821dfd9a19ad9ea484622a48ef58986aac43e9 Mon Sep 17 00:00:00 2001
+From 63aafdc8eb028285b77bf72008c415db18612f9d Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Tue, 20 Nov 2018 14:51:36 +0800
-Subject: [PATCH 05/14] playbin3: Fix Qt videoplayer cannot change video state
+Subject: [PATCH] playbin3: Fix Qt videoplayer cannot change video state
 
 Change-Id: I765bbe0caebe333855bd16fdd0843e0257491246
 Signed-off-by: shine.liu <shine.liu@rock-chips.com>
@@ -354,6 +354,3 @@ index 46eb478..f059474 100644
    return;
  
    /* ERRORS */
--- 
-2.20.1
-

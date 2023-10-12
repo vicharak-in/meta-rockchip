@@ -1,7 +1,7 @@
-From f397165ca764cb6023e6efa88afb0df643789ea6 Mon Sep 17 00:00:00 2001
+From 1359cb4c4da996951c9460495fbfa3e0ea5be546 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Thu, 31 Oct 2019 18:45:19 +0800
-Subject: [PATCH 08/14] video-converter: Support rockchip RGA 2D accel
+Subject: [PATCH] video-converter: Support rockchip RGA 2D accel
 
 Disabled by default, set env GST_VIDEO_CONVERT_USE_RGA=1 to enable.
 
@@ -238,7 +238,7 @@ index 9b77eab..c49d9a0 100644
    for (i = 0; i < n_planes; i++) {
      if (convert->fconvert[i])
 diff --git a/meson.build b/meson.build
-index 19a8347..4341e8e 100644
+index 934f9d4..12a9c63 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -305,6 +305,9 @@ if get_option('default_library') == 'static'
@@ -251,6 +251,3 @@ index 19a8347..4341e8e 100644
  # X11 checks are for sys/ and tests/
  x11_dep = dependency('x11', required : get_option('x11'))
  # GIO is used by the GIO plugin, and by the TCP, SDP, and RTSP plugins
--- 
-2.20.1
-

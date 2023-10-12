@@ -7,3 +7,5 @@ PATCHPATH = "${CURDIR}/${BPN}_${MAJ_VER}"
 inherit auto-patch
 
 DEPENDS:append = " rockchip-librga"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+

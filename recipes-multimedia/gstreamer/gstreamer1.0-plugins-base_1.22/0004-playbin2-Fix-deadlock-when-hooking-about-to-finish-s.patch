@@ -1,8 +1,7 @@
-From bb1bedd21fa8e65064861b15e1395c179d3a840a Mon Sep 17 00:00:00 2001
+From 29e78d887ff342dad7e4169dee806f2ab2a35c6d Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Fri, 26 Nov 2021 17:41:47 +0800
-Subject: [PATCH 04/14] playbin2: Fix deadlock when hooking about-to-finish
- signal
+Subject: [PATCH] playbin2: Fix deadlock when hooking about-to-finish signal
 
 The playbin2 will deactivate old group in drain_cb() for that, which
 would cause deadlock when other thread tries to notify pad-change at
@@ -82,6 +81,3 @@ index 4098fb9..cbd8e08 100644
    group->pending_about_to_finish = TRUE;
  }
  
--- 
-2.20.1
-

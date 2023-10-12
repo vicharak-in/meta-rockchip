@@ -1,8 +1,8 @@
-From 7780426e13b84978192c38e8758dd4616412a2f9 Mon Sep 17 00:00:00 2001
+From f0d2885542aaddb00682cc1bafaaa79f36a68ca9 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Wed, 18 Mar 2020 10:09:49 +0800
-Subject: [PATCH 09/14] HACK: gl/egl: allow direct dmabuf import when unable to
- query formats
+Subject: [PATCH] HACK: gl/egl: allow direct dmabuf import when unable to query
+ formats
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
 ---
@@ -34,6 +34,3 @@ index 179abe9..8c05328 100644
    ret = gst_eglQueryDmaBufModifiersEXT (egl_display, fourcc, 0, NULL, NULL,
        &num_modifiers);
    if (!ret || num_modifiers == 0) {
--- 
-2.20.1
-

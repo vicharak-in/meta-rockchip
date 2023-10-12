@@ -1,7 +1,7 @@
-From 4543288011170a0eece1104d52a706f594ed6d9d Mon Sep 17 00:00:00 2001
+From 7a90c848e199b13ff80b30a3cf28732084cf42fd Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Fri, 17 Sep 2021 13:20:24 +0800
-Subject: [PATCH 11/14] videoconvert: Support preferred formats
+Subject: [PATCH] videoconvert: Support preferred formats
 
 Set env "GST_VIDEO_CONVERT_PREFERRED_FORMAT" to specify preferred
 formats, for example:
@@ -45,6 +45,3 @@ index d921b7f..ba905c5 100644
    GST_DEBUG_OBJECT (base, "score %s -> %s = %d",
        GST_VIDEO_FORMAT_INFO_NAME (in_info),
        GST_VIDEO_FORMAT_INFO_NAME (t_info), loss);
--- 
-2.20.1
-
