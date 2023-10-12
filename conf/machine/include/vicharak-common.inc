@@ -42,6 +42,7 @@ MACHINE_EXTRA_RRECOMMENDS:append = " \
 "
 
 IMAGE_INSTALL:append = " \
+    alsa-utils \
 	bash-completion \
 	curl \
 	ethtool \
