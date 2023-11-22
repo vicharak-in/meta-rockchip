@@ -1,20 +1,16 @@
-From c51affbdf699b595ce8e06661795ca0da488c404 Mon Sep 17 00:00:00 2001
+From 5335407ee6b594f511daf83d484023eb2adfd4f4 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Fri, 25 Feb 2022 17:48:58 +0800
-Subject: [PATCH 31/41] kmssink: Support setting prefered frame syncing mode
+Subject: [PATCH 31/40] kmssink: Support setting prefered frame syncing mode
 
 Tested with:
 gst-launch-1.0 videotestsrc ! kmssink sync-mode=vblank
 gst-launch-1.0 videotestsrc ! kmssink sync-mode=none
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- sys/kms/gstkmssink.c | 55 +++++++++++++++++++++++++++++++++++++++++---
- sys/kms/gstkmssink.h | 10 ++++++++
- 2 files changed, 62 insertions(+), 3 deletions(-)
 
 diff --git a/sys/kms/gstkmssink.c b/sys/kms/gstkmssink.c
-index 3740e57..0db743c 100644
+index f9419bc..860a270 100644
 --- a/sys/kms/gstkmssink.c
 +++ b/sys/kms/gstkmssink.c
 @@ -107,11 +107,14 @@ enum
@@ -170,5 +166,5 @@ index 5fb712d..3e25665 100644
  
  struct _GstKMSSinkClass {
 -- 
-2.20.1
+2.25.1
 

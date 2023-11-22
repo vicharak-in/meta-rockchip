@@ -1,7 +1,7 @@
-From 11a6d4a05620d9a30c0b322930064a8161adfb1c Mon Sep 17 00:00:00 2001
+From 0d72168bee1ba7c2545d1219e615446a4b4d94c5 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Fri, 5 Mar 2021 10:15:51 +0800
-Subject: [PATCH 19/41] waylandsink: Support window layer property
+Subject: [PATCH 19/40] waylandsink: Support window layer property
 
 Support setting top|normal|bottom window layer.
 
@@ -9,12 +9,6 @@ Tested with:
 gst-launch-1.0 videotestsrc ! waylandsink layer=top
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- ext/wayland/gstwaylandsink.c       | 52 ++++++++++++++++++++++++++++--
- ext/wayland/gstwaylandsink.h       |  1 +
- gst-libs/gst/wayland/gstwlwindow.c | 40 ++++++++++++++++++++++-
- gst-libs/gst/wayland/gstwlwindow.h | 15 +++++++--
- 4 files changed, 103 insertions(+), 5 deletions(-)
 
 diff --git a/ext/wayland/gstwaylandsink.c b/ext/wayland/gstwaylandsink.c
 index 7917c69..56a6849 100644
@@ -141,10 +135,10 @@ index d4c3764..a417788 100644
    gchar *display_name;
  
 diff --git a/gst-libs/gst/wayland/gstwlwindow.c b/gst-libs/gst/wayland/gstwlwindow.c
-index dd6e1c2..fed1c97 100644
+index 3d4e562..a950122 100644
 --- a/gst-libs/gst/wayland/gstwlwindow.c
 +++ b/gst-libs/gst/wayland/gstwlwindow.c
-@@ -252,6 +252,43 @@ gst_wl_window_new_internal (GstWlDisplay * display, GMutex * render_lock)
+@@ -259,6 +259,43 @@ gst_wl_window_new_internal (GstWlDisplay * display, GMutex * render_lock)
    return self;
  }
  
@@ -188,7 +182,7 @@ index dd6e1c2..fed1c97 100644
  void
  gst_wl_window_ensure_fullscreen (GstWlWindow * self, gboolean fullscreen)
  {
-@@ -269,7 +306,7 @@ gst_wl_window_ensure_fullscreen (GstWlWindow * self, gboolean fullscreen)
+@@ -276,7 +313,7 @@ gst_wl_window_ensure_fullscreen (GstWlWindow * self, gboolean fullscreen)
  
  GstWlWindow *
  gst_wl_window_new_toplevel (GstWlDisplay * display, const GstVideoInfo * info,
@@ -197,7 +191,7 @@ index dd6e1c2..fed1c97 100644
      GstVideoRectangle * render_rectangle)
  {
    GstWlWindow *self;
-@@ -306,6 +343,7 @@ gst_wl_window_new_toplevel (GstWlDisplay * display, const GstVideoInfo * info,
+@@ -313,6 +350,7 @@ gst_wl_window_new_toplevel (GstWlDisplay * display, const GstVideoInfo * info,
          &xdg_toplevel_listener, self);
  
      gst_wl_window_ensure_fullscreen (self, fullscreen);
@@ -243,5 +237,5 @@ index 2bbd643..a0b05c3 100644
  GST_WL_API
  GstWlWindow *gst_wl_window_new_in_surface (GstWlDisplay * display,
 -- 
-2.20.1
+2.25.1
 

@@ -1,15 +1,12 @@
-From 4f75a24fbec54ec7cb81ac8d2c2dcc52909660c7 Mon Sep 17 00:00:00 2001
+From ec6c37b9a079651753129c95c83ae31c8312dbc9 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Tue, 20 Nov 2018 17:33:22 +0800
-Subject: [PATCH 04/41] kmssink: Support render rectangle for plane
+Subject: [PATCH 04/40] kmssink: Support render rectangle for plane
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- sys/kms/gstkmssink.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/sys/kms/gstkmssink.c b/sys/kms/gstkmssink.c
-index 16d4afb..797f57c 100644
+index c798a16..3851f5b 100644
 --- a/sys/kms/gstkmssink.c
 +++ b/sys/kms/gstkmssink.c
 @@ -776,6 +776,9 @@ configure_mode_setting (GstKMSSink * self, GstVideoInfo * vinfo)
@@ -39,5 +36,5 @@ index 16d4afb..797f57c 100644
  
    if ((crop = gst_buffer_get_video_crop_meta (buffer))) {
 -- 
-2.20.1
+2.25.1
 

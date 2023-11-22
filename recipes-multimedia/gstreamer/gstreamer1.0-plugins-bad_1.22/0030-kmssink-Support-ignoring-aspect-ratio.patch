@@ -1,18 +1,14 @@
-From 9b7e490376c888bcbe6b2802673a590409d9e82a Mon Sep 17 00:00:00 2001
+From 665c021344b0cd94106f5adbd0389fbb423ec9c5 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Wed, 19 Jan 2022 16:37:40 +0800
-Subject: [PATCH 30/41] kmssink: Support ignoring aspect ratio
+Subject: [PATCH 30/40] kmssink: Support ignoring aspect ratio
 
 Set "force-aspect-ratio" property to false to ignore aspect ratio.
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- sys/kms/gstkmssink.c | 18 +++++++++++++++++-
- sys/kms/gstkmssink.h |  2 ++
- 2 files changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/sys/kms/gstkmssink.c b/sys/kms/gstkmssink.c
-index 8335963..3740e57 100644
+index 9fa33c9..f9419bc 100644
 --- a/sys/kms/gstkmssink.c
 +++ b/sys/kms/gstkmssink.c
 @@ -106,6 +106,7 @@ enum
@@ -96,5 +92,5 @@ index f221eb6..5fb712d 100644
  
  struct _GstKMSSinkClass {
 -- 
-2.20.1
+2.25.1
 

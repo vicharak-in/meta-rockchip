@@ -1,20 +1,17 @@
-From 347a0ce52357d2f199724b18b571516a95d73029 Mon Sep 17 00:00:00 2001
+From aa8ca1f8bd6d12105a997523b2e7fbc68879b2e3 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Fri, 5 Aug 2022 11:39:00 +0800
-Subject: [PATCH 37/41] waylandsink: Support transparent video
+Subject: [PATCH 37/40] waylandsink: Support transparent video
 
 Tested with transparent png picture.
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- gst-libs/gst/wayland/gstwlwindow.c | 36 +++++++++++++++++++++---------
- 1 file changed, 26 insertions(+), 10 deletions(-)
 
 diff --git a/gst-libs/gst/wayland/gstwlwindow.c b/gst-libs/gst/wayland/gstwlwindow.c
-index 21cd476..36afd3f 100644
+index 97a65b0..39be99f 100644
 --- a/gst-libs/gst/wayland/gstwlwindow.c
 +++ b/gst-libs/gst/wayland/gstwlwindow.c
-@@ -69,6 +69,9 @@ typedef struct _GstWlWindowPrivate
+@@ -72,6 +72,9 @@ typedef struct _GstWlWindowPrivate
    gint crop_x, crop_y, crop_w, crop_h;
    gboolean crop_dirty;
  
@@ -24,7 +21,7 @@ index 21cd476..36afd3f 100644
    enum wl_output_transform buffer_transform;
  
    /* when this is not set both the area_surface and the video_surface are not
-@@ -628,20 +631,23 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
+@@ -638,20 +641,23 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
  }
  
  static void
@@ -55,7 +52,7 @@ index 21cd476..36afd3f 100644
      /* Set video opaque */
      region = wl_compositor_create_region (compositor);
      wl_region_add (region, 0, 0, G_MAXINT32, G_MAXINT32);
-@@ -659,10 +665,15 @@ gst_wl_window_render (GstWlWindow * self, GstWlBuffer * buffer,
+@@ -669,10 +675,15 @@ gst_wl_window_render (GstWlWindow * self, GstWlBuffer * buffer,
    if (G_UNLIKELY (info)) {
      priv->video_width = info->width;
      priv->video_height = info->height;
@@ -72,7 +69,7 @@ index 21cd476..36afd3f 100644
    } else if (priv->crop_dirty) {
      gst_wl_window_resize_video_surface (self, FALSE);
    }
-@@ -730,8 +741,13 @@ gst_wl_window_update_borders (GstWlWindow * self)
+@@ -741,8 +752,13 @@ gst_wl_window_update_borders (GstWlWindow * self)
      height = priv->render_rectangle.h;
    }
  
@@ -89,5 +86,5 @@ index 21cd476..36afd3f 100644
    /* draw the area_subsurface */
    gst_video_info_set_format (&info, format, width, height);
 -- 
-2.20.1
+2.25.1
 

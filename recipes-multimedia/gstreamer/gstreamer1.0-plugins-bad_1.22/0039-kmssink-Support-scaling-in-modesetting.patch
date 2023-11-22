@@ -1,15 +1,12 @@
-From c9775626560c0f86f156e01a3d522769d32b5154 Mon Sep 17 00:00:00 2001
+From e60f6ad1a1692e562e789798cafe884cbf7db44e Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Thu, 15 Sep 2022 18:01:12 +0800
-Subject: [PATCH 39/41] kmssink: Support scaling in modesetting
+Subject: [PATCH 39/40] kmssink: Support scaling in modesetting
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- sys/kms/gstkmssink.c | 52 +++++++++++++++++++++++++++++---------------
- 1 file changed, 34 insertions(+), 18 deletions(-)
 
 diff --git a/sys/kms/gstkmssink.c b/sys/kms/gstkmssink.c
-index 3bb55e6..4538459 100644
+index 2f1e477..fc58d69 100644
 --- a/sys/kms/gstkmssink.c
 +++ b/sys/kms/gstkmssink.c
 @@ -539,11 +539,12 @@ drm_plane_get_type (int fd, drmModePlane * plane)
@@ -130,5 +127,5 @@ index 3bb55e6..4538459 100644
  
    if ((crop = gst_buffer_get_video_crop_meta (buffer))) {
 -- 
-2.20.1
+2.25.1
 

@@ -1,18 +1,12 @@
-From 695e35a6e7f238e7186d3e27d728caa1a1452e30 Mon Sep 17 00:00:00 2001
+From 3509fc06c5a0d28e0767112c94ef4686dc0403e2 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Tue, 30 Mar 2021 07:08:06 +0800
-Subject: [PATCH 21/41] waylandsink: Support window fill-mode property
+Subject: [PATCH 21/40] waylandsink: Support window fill-mode property
 
 Tested with:
 gst-launch-1.0 videotestsrc ! waylandsink fullscreen=1 fill-mode=crop
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- ext/wayland/gstwaylandsink.c       | 56 ++++++++++++++++++++++++++++++
- ext/wayland/gstwaylandsink.h       |  1 +
- gst-libs/gst/wayland/gstwlwindow.c | 43 ++++++++++++++++++++++-
- gst-libs/gst/wayland/gstwlwindow.h | 11 ++++++
- 4 files changed, 110 insertions(+), 1 deletion(-)
 
 diff --git a/ext/wayland/gstwaylandsink.c b/ext/wayland/gstwaylandsink.c
 index 008c774..2c5b295 100644
@@ -153,10 +147,10 @@ index 0339ef7..7abfea1 100644
    gchar *display_name;
  
 diff --git a/gst-libs/gst/wayland/gstwlwindow.c b/gst-libs/gst/wayland/gstwlwindow.c
-index f470338..7dc0da5 100644
+index e608b7c..084355c 100644
 --- a/gst-libs/gst/wayland/gstwlwindow.c
 +++ b/gst-libs/gst/wayland/gstwlwindow.c
-@@ -71,6 +71,8 @@ typedef struct _GstWlWindowPrivate
+@@ -74,6 +74,8 @@ typedef struct _GstWlWindowPrivate
    /* when this is not set both the area_surface and the video_surface are not
     * visible and certain steps should be skipped */
    gboolean is_area_surface_mapped;
@@ -165,7 +159,7 @@ index f470338..7dc0da5 100644
  } GstWlWindowPrivate;
  
  G_DEFINE_TYPE_WITH_CODE (GstWlWindow, gst_wl_window, G_TYPE_OBJECT,
-@@ -253,6 +255,19 @@ gst_wl_window_new_internal (GstWlDisplay * display, GMutex * render_lock)
+@@ -260,6 +262,19 @@ gst_wl_window_new_internal (GstWlDisplay * display, GMutex * render_lock)
    return self;
  }
  
@@ -185,7 +179,7 @@ index f470338..7dc0da5 100644
  static void
  gst_wl_window_set_config (GstWlWindow * self, const char *config)
  {
-@@ -510,7 +525,33 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
+@@ -517,7 +532,33 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
  
    /* center the video_subsurface inside area_subsurface */
    if (priv->video_viewport) {
@@ -217,9 +211,9 @@ index f470338..7dc0da5 100644
 +      res = dst;
 +    }
 +
-     wp_viewport_set_destination (priv->video_viewport, res.w, res.h);
-   } else {
-     gst_video_center_rect (&src, &dst, &res, FALSE);
+     wp_viewport_set_source (priv->video_viewport, wl_fixed_from_int (0),
+         wl_fixed_from_int (0), wl_fixed_from_int (priv->video_width),
+         wl_fixed_from_int (priv->video_height));
 diff --git a/gst-libs/gst/wayland/gstwlwindow.h b/gst-libs/gst/wayland/gstwlwindow.h
 index 2672e0f..1571ece 100644
 --- a/gst-libs/gst/wayland/gstwlwindow.h
@@ -248,5 +242,5 @@ index 2672e0f..1571ece 100644
  void gst_wl_window_ensure_alpha (GstWlWindow * self, gdouble alpha);
  
 -- 
-2.20.1
+2.25.1
 

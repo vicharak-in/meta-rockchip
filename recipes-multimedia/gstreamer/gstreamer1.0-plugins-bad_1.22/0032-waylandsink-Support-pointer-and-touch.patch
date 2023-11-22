@@ -1,18 +1,11 @@
-From 4e0adf7cb555dc999387810db56c04c5a48b6cbc Mon Sep 17 00:00:00 2001
+From 7189cf316f3586c79487298c1ac894521f2da25c Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Thu, 5 May 2022 17:56:46 +0800
-Subject: [PATCH 32/41] waylandsink: Support pointer and touch
+Subject: [PATCH 32/40] waylandsink: Support pointer and touch
 
 Based on weston's client window and simple-egl.
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- gst-libs/gst/wayland/gstwldisplay.c | 293 ++++++++++++++++++++++++++++
- gst-libs/gst/wayland/gstwldisplay.h |   4 +
- gst-libs/gst/wayland/gstwlwindow.c  |  17 ++
- gst-libs/gst/wayland/gstwlwindow.h  |   4 +
- gst-libs/gst/wayland/meson.build    |   7 +-
- 5 files changed, 322 insertions(+), 3 deletions(-)
 
 diff --git a/gst-libs/gst/wayland/gstwldisplay.c b/gst-libs/gst/wayland/gstwldisplay.c
 index 3e11211..b860a8c 100644
@@ -397,10 +390,10 @@ index c130b79..c6b4c8d 100644
  gboolean gst_wl_display_support_afbc (GstWlDisplay * self);
  
 diff --git a/gst-libs/gst/wayland/gstwlwindow.c b/gst-libs/gst/wayland/gstwlwindow.c
-index df60a67..f55778d 100644
+index 19f162b..22c5c1e 100644
 --- a/gst-libs/gst/wayland/gstwlwindow.c
 +++ b/gst-libs/gst/wayland/gstwlwindow.c
-@@ -96,6 +96,19 @@ static void gst_wl_window_finalize (GObject * gobject);
+@@ -100,6 +100,19 @@ static void gst_wl_window_finalize (GObject * gobject);
  
  static void gst_wl_window_update_borders (GstWlWindow * self);
  
@@ -420,7 +413,7 @@ index df60a67..f55778d 100644
  static void
  handle_xdg_toplevel_close (void *data, struct xdg_toplevel *xdg_toplevel)
  {
-@@ -227,6 +240,8 @@ gst_wl_window_new_internal (GstWlDisplay * display, GMutex * render_lock)
+@@ -234,6 +247,8 @@ gst_wl_window_new_internal (GstWlDisplay * display, GMutex * render_lock)
    priv->area_surface = wl_compositor_create_surface (compositor);
    priv->video_surface = wl_compositor_create_surface (compositor);
  
@@ -429,7 +422,7 @@ index df60a67..f55778d 100644
    priv->area_surface_wrapper = wl_proxy_create_wrapper (priv->area_surface);
    priv->video_surface_wrapper = wl_proxy_create_wrapper (priv->video_surface);
  
-@@ -368,6 +383,8 @@ gst_wl_window_new_toplevel (GstWlDisplay * display, const GstVideoInfo * info,
+@@ -375,6 +390,8 @@ gst_wl_window_new_toplevel (GstWlDisplay * display, const GstVideoInfo * info,
    self = gst_wl_window_new_internal (display, render_lock);
    priv = gst_wl_window_get_instance_private (self);
  
@@ -489,5 +482,5 @@ index 3aa63cb..9c958d7 100644
    install_headers(wl_headers, subdir: 'gstreamer-1.0/gst/wayland')
    meson.override_dependency(pkg_name, gstwayland_dep)
 -- 
-2.20.1
+2.25.1
 

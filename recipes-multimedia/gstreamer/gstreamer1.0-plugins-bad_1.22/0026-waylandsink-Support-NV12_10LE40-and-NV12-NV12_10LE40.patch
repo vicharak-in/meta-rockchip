@@ -1,7 +1,7 @@
-From fd062e78c69898fcf2f8dd9db39c1556692f70bf Mon Sep 17 00:00:00 2001
+From 73791acf9709adb900eb5e22f28c63928a96df14 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Fri, 12 Nov 2021 11:14:37 +0800
-Subject: [PATCH 26/41] waylandsink: Support NV12_10LE40 and
+Subject: [PATCH 26/40] waylandsink: Support NV12_10LE40 and
  NV12|NV12_10LE40|NV16 (AFBC)
 
 Tested on RK356x with:
@@ -9,16 +9,6 @@ export GST_MPP_VIDEODEC_DEFAULT_ARM_AFBC=1
 gst-play-1.0 video.mp4 --videosink=waylandsink
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- ext/wayland/gstwaylandsink.c            | 86 ++++++++++++++++++++++++-
- gst-libs/gst/wayland/gstwldisplay.c     | 37 ++++++++++-
- gst-libs/gst/wayland/gstwldisplay.h     |  6 ++
- gst-libs/gst/wayland/gstwllinuxdmabuf.c | 26 +++++++-
- gst-libs/gst/wayland/gstwlvideoformat.c |  1 +
- gst-libs/gst/wayland/gstwlvideoformat.h | 44 +++++++++++++
- gst-libs/gst/wayland/gstwlwindow.c      | 50 +++++++++++---
- gst-libs/gst/wayland/gstwlwindow.h      |  4 ++
- 8 files changed, 243 insertions(+), 11 deletions(-)
 
 diff --git a/ext/wayland/gstwaylandsink.c b/ext/wayland/gstwaylandsink.c
 index 5e142e9..b26b7ee 100644
@@ -407,12 +397,12 @@ index bc36a08..abf579c 100644
  void gst_wl_videoformat_init_once (void);
  
 diff --git a/gst-libs/gst/wayland/gstwlwindow.c b/gst-libs/gst/wayland/gstwlwindow.c
-index 7dc0da5..df60a67 100644
+index 084355c..19f162b 100644
 --- a/gst-libs/gst/wayland/gstwlwindow.c
 +++ b/gst-libs/gst/wayland/gstwlwindow.c
-@@ -66,6 +66,9 @@ typedef struct _GstWlWindowPrivate
-   /* the size of the video in the buffers */
-   gint video_width, video_height;
+@@ -69,6 +69,9 @@ typedef struct _GstWlWindowPrivate
+   /* video width scaled according to par */
+   gint scaled_width;
  
 +  gint crop_x, crop_y, crop_w, crop_h;
 +  gboolean crop_dirty;
@@ -420,7 +410,7 @@ index 7dc0da5..df60a67 100644
    enum wl_output_transform buffer_transform;
  
    /* when this is not set both the area_surface and the video_surface are not
-@@ -255,6 +258,29 @@ gst_wl_window_new_internal (GstWlDisplay * display, GMutex * render_lock)
+@@ -262,6 +265,29 @@ gst_wl_window_new_internal (GstWlDisplay * display, GMutex * render_lock)
    return self;
  }
  
@@ -450,7 +440,7 @@ index 7dc0da5..df60a67 100644
  void
  gst_wl_window_ensure_fill_mode (GstWlWindow * self,
      GstWlWindowFillMode fill_mode)
-@@ -523,6 +549,14 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
+@@ -530,6 +556,14 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
    dst.w = priv->render_rectangle.w;
    dst.h = priv->render_rectangle.h;
  
@@ -465,7 +455,7 @@ index 7dc0da5..df60a67 100644
    /* center the video_subsurface inside area_subsurface */
    if (priv->video_viewport) {
      if (priv->fill_mode == GST_WL_WINDOW_STRETCH) {
-@@ -537,22 +571,21 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
+@@ -544,18 +578,14 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
  
        if (src_ratio < dst_ratio) {
          int h = src.w / dst_ratio;
@@ -486,6 +476,9 @@ index 7dc0da5..df60a67 100644
        res = dst;
      }
  
+@@ -563,6 +593,9 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
+         wl_fixed_from_int (0), wl_fixed_from_int (priv->video_width),
+         wl_fixed_from_int (priv->video_height));
      wp_viewport_set_destination (priv->video_viewport, res.w, res.h);
 +    wp_viewport_set_source (priv->video_viewport,
 +        wl_fixed_from_int (src.x), wl_fixed_from_int (src.y),
@@ -493,13 +486,13 @@ index 7dc0da5..df60a67 100644
    } else {
      gst_video_center_rect (&src, &dst, &res, FALSE);
    }
-@@ -597,13 +630,14 @@ gst_wl_window_render (GstWlWindow * self, GstWlBuffer * buffer,
+@@ -607,14 +640,14 @@ gst_wl_window_render (GstWlWindow * self, GstWlBuffer * buffer,
    GstWlWindowPrivate *priv = gst_wl_window_get_instance_private (self);
  
    if (G_UNLIKELY (info)) {
--    priv->video_width =
+-    priv->scaled_width =
 -        gst_util_uint64_scale_int_round (info->width, info->par_n, info->par_d);
-+    priv->video_width = info->width;
+     priv->video_width = info->width;
      priv->video_height = info->height;
  
      wl_subsurface_set_sync (priv->video_subsurface);
@@ -526,5 +519,5 @@ index 1571ece..8f02f00 100644
  void gst_wl_window_ensure_fill_mode (GstWlWindow * self,
          GstWlWindowFillMode fill_mode);
 -- 
-2.20.1
+2.25.1
 

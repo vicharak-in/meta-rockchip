@@ -1,15 +1,11 @@
-From 72365798203c974bfde948a2dcccb5c181ba9b89 Mon Sep 17 00:00:00 2001
+From f5e6ff4a9e8b3a3cf602f8555704b824ccf1a016 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Tue, 8 Jun 2021 09:09:38 +0800
-Subject: [PATCH 23/41] waylandsink: Use create_immed to create dmabuf
+Subject: [PATCH 23/40] waylandsink: Use create_immed to create dmabuf
 
 The async creation has lots of issues when the device overloaded.
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- gst-libs/gst/wayland/gstwldisplay.c     |  2 +-
- gst-libs/gst/wayland/gstwllinuxdmabuf.c | 60 ++-----------------------
- 2 files changed, 5 insertions(+), 57 deletions(-)
 
 diff --git a/gst-libs/gst/wayland/gstwldisplay.c b/gst-libs/gst/wayland/gstwldisplay.c
 index 1f83cb2..71a5dde 100644
@@ -126,5 +122,5 @@ index d6ee6ec..2d5bb6b 100644
    return data.wbuf;
  }
 -- 
-2.20.1
+2.25.1
 

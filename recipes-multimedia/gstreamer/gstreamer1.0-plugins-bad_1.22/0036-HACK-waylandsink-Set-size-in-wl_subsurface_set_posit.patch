@@ -1,21 +1,18 @@
-From 8c7b10c891d4505b295098bd0ecec34329e2f586 Mon Sep 17 00:00:00 2001
+From ff440333e2a476f16d4d3e768512ca52bddd8934 Mon Sep 17 00:00:00 2001
 From: Jeffy Chen <jeffy.chen@rock-chips.com>
 Date: Thu, 21 Jul 2022 12:29:27 +0800
-Subject: [PATCH 36/41] HACK: waylandsink: Set size in
+Subject: [PATCH 36/40] HACK: waylandsink: Set size in
  wl_subsurface_set_position() when no viewport
 
 Tested with hacked enlightenment.
 
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
----
- gst-libs/gst/wayland/gstwlwindow.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/gst-libs/gst/wayland/gstwlwindow.c b/gst-libs/gst/wayland/gstwlwindow.c
-index f94976f..21cd476 100644
+index 50752b3..97a65b0 100644
 --- a/gst-libs/gst/wayland/gstwlwindow.c
 +++ b/gst-libs/gst/wayland/gstwlwindow.c
-@@ -604,7 +604,17 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
+@@ -614,7 +614,17 @@ gst_wl_window_resize_video_surface (GstWlWindow * self, gboolean commit)
          wl_fixed_from_int (src.x), wl_fixed_from_int (src.y),
          wl_fixed_from_int (src.w), wl_fixed_from_int (src.h));
    } else {
@@ -35,5 +32,5 @@ index f94976f..21cd476 100644
  
    wl_subsurface_set_position (priv->video_subsurface, res.x, res.y);
 -- 
-2.20.1
+2.25.1
 
