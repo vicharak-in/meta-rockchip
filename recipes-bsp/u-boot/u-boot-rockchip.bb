@@ -17,11 +17,11 @@ PV = "2017.09"
 
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 
-SRCREV = "5bb2f99467174516e6ed423a0f29e05b9821423a"
+SRCREV = "a1041d0b78798994457669424e3139ac80e8f273"
 SRCREV_rkbin = "c41b714cacd249e3ef69b2bbe774da5095eefd72"
 SRC_URI = " \
-	git://github.com/vicharak-in/u-boot-vicharak;protocol=https;branch=master; \
-	git://github.com/vicharak-in/rkbin-vicharak;protocol=https;branch=master;name=rkbin;destsuffix=rkbin; \
+	git://github.com/vicharak-in/rockchip-linux-u-boot;protocol=https;branch=master; \
+	git://github.com/vicharak-in/rockchip-linux-rkbin;protocol=https;branch=master;name=rkbin;destsuffix=rkbin; \
 "
 
 SRCREV_FORMAT = "default_rkbin"
