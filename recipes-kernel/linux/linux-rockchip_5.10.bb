@@ -6,7 +6,7 @@ require linux-rockchip.inc
 
 inherit local-git
 
-SRCREV = "2d6015878c00ef2025b1b97a21415079796c8e67"
+SRCREV = "9b2323f8b2c6ed50b1cd1fbfc97ffa42d6298ff7"
 SRC_URI = " \
 	git://github.com/vicharak-in/rockchip-linux-kernel;protocol=https;nobranch=1;branch=master; \
 	file://${THISDIR}/files/rk3399_vaaman.cfg \
