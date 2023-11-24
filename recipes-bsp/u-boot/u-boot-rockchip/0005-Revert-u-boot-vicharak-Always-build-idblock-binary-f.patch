@@ -1,0 +1,26 @@
+From 879f3351e2afb2c3c56d9b919baa6387bc19325f Mon Sep 17 00:00:00 2001
+From: UtsavBalar1231 <utsavbalar1231@gmail.com>
+Date: Fri, 24 Nov 2023 18:13:04 +0530
+Subject: [PATCH] Revert "u-boot-vicharak: Always build idblock binary from
+ make script"
+
+This reverts commit e1ec45930dd0d0038f227dbb23df7f0d0a014894.
+---
+ make.sh | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/make.sh b/make.sh
+index ec29150633..e4444a3219 100755
+--- a/make.sh
++++ b/make.sh
+@@ -776,7 +776,6 @@ function pack_images()
+ 			pack_uboot_image
+ 			pack_trust_image
+ 			pack_loader_image
+-			pack_idblock
+ 		fi
+ 	fi
+ }
+-- 
+2.25.1
+
