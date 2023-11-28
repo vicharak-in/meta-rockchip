@@ -9,7 +9,7 @@ PACKAGE_CLASSES = "package_deb"
 EXTRA_IMAGE_FEATURES += "package-management"
 
 # Enable gnupg support
-IMAGE_INSTALL:append = "gnupg"
+IMAGE_INSTALL:append = " gnupg "
 
 # Install Vicharak overlay directory
 VICHARAK_OVERLAY_DIRS:append = " \
