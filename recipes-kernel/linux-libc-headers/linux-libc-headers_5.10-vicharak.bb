@@ -7,7 +7,7 @@ inherit auto-patch
 
 inherit local-git
 
-SRCREV = "9b2323f8b2c6ed50b1cd1fbfc97ffa42d6298ff7"
+SRCREV = "3982f6379937fa8f30687f36bf5fac473bc2b55a"
 SRC_URI = " \
 	git://github.com/vicharak-in/rockchip-linux-kernel;protocol=https;nobranch=1;branch=master; \
 	file://${THISDIR}/files/rk3399_vaaman.cfg \
