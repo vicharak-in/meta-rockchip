@@ -17,7 +17,7 @@ PV = "2017.09"
 
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 
-SRCREV = "a1041d0b78798994457669424e3139ac80e8f273"
+SRCREV = "7618c009d29b1d6986978445041793cdb27a9a35"
 SRCREV_rkbin = "c41b714cacd249e3ef69b2bbe774da5095eefd72"
 SRC_URI = " \
 	git://github.com/vicharak-in/rockchip-linux-u-boot;protocol=https;branch=master; \
