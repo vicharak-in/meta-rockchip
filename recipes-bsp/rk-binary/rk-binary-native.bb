@@ -8,15 +8,15 @@ DESCRIPTION = "Rockchip binary tools"
 LICENSE = "LICENSE.rockchip"
 LIC_FILES_CHKSUM = "file://${RKBASE}/licenses/LICENSE.rockchip;md5=d63890e209bf038f44e708bbb13e4ed9"
 SRC_URI = " \
-	git://github.com/vicharak-in/rockchip-linux-rkbin.git;protocol=https;branch=master;name=rkbin;name=rkbin; \
-	git://github.com/vicharak-in/rockchip-linux-tools.git;protocol=https;branch=master;name=tools;destsuffix=git/extra \
+	git://github.com/vicharak-in/rockchip-linux-rkbin.git;protocol=https;branch=master;name=rkbin;destsuffix=rkbin; \
+	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=tools;name=tools;destsuffix=extra \
 "
 
 SRCREV_rkbin = "c41b714cacd249e3ef69b2bbe774da5095eefd72"
-SRCREV_tools = "42a31f84b0d4bc052c1a14fd61a1e25eaecf95c3"
+SRCREV_tools = "1a32bc776af52494144fcef6641a73850cee628a"
 SRCREV_FORMAT ?= "rkbin_tools"
 
-S = "${WORKDIR}/git"
+S = "${WORKDIR}"
 
 INSANE_SKIP:${PN} = "already-stripped"
 STRIP = "echo"
@@ -27,7 +27,7 @@ UNINATIVE_LOADER := ""
 do_install () {
 	install -d ${D}/${bindir}
 
-	cd ${S}/tools
+	cd ${S}/rkbin/tools
 
 	install -m 0755 boot_merger ${D}/${bindir}
 	install -m 0755 trust_merger ${D}/${bindir}
