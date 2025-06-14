@@ -1,0 +1,29 @@
+diff --git a/include/configs/rk3588_axon.h b/include/configs/rk3588_axon.h
+index 9f012ac0de..70b949897e 100644
+--- a/include/configs/rk3588_axon.h
++++ b/include/configs/rk3588_axon.h
+@@ -7,15 +7,21 @@
+ #define __RK3588_AXON_H
+ 
+ #include <configs/vicharak_common.h>
++#include <configs/rk3588_common.h>
+ 
++#ifndef CONFIG_SPL_BUILD
++#undef ROCKCHIP_DEVICE_SETTINGS
+ #define ROCKCHIP_DEVICE_SETTINGS \
+ 		"stdout=serial,vidconsole\0" \
+ 		"stderr=serial,vidconsole\0" \
+ 		"stdin=usbkbd,serial\0" \
+-		VICHARAK_BOOT_MENU
++       VICHARAK_BOOT_MENU
+ 
+-#define CONFIG_SYS_MMC_ENV_DEV		1	/* eMMC */
+ 
+-#include <configs/rk3588_common.h>
++#define CONFIG_SYS_MMC_ENV_DEV		0	/* eMMC */
++
++#undef CONFIG_BOOTCOMMAND
++#define CONFIG_BOOTCOMMAND RKIMG_BOOTCOMMAND
+ 
+ #endif /* __RK3588_AXON_H */
++#endif

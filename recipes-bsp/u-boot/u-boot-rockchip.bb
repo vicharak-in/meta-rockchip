@@ -8,8 +8,10 @@ inherit local-git python3-dir
 
 require recipes-bsp/u-boot/u-boot.inc
 require recipes-bsp/u-boot/u-boot-common.inc
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 PROVIDES = "virtual/bootloader"
+EXTRA_OEMAKE += "KCFLAGS='-Wno-error'"
 
 DEPENDS += "bc-native dtc-native"
 
@@ -17,11 +19,20 @@ PV = "2017.09"
 
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 
-SRCREV = "7618c009d29b1d6986978445041793cdb27a9a35"
+UBOOT_EXTLINUX = "1"
+UBOOT_EXTLINUX_KERNEL_IMAGE = "/boot/Image"
+UBOOT_EXTLINUX_CONSOLE = "1500000n8"
+UBOOT_EXTLINUX_ROOT = "PARTUUID=614e0000-0000-4b53-8000-1d28000054a9"
+UBOOT_EXTLINUX_KERNEL_ARGS:append = " rootfstype=ext4"
+UBOOT_EXTLINUX_FDT = "/boot/rk3588-axon-linux.dtb"
+
+SRCREV = "30500c1b778cf53b0fd21f9b1508d3f94343b428"
 SRCREV_rkbin = "c41b714cacd249e3ef69b2bbe774da5095eefd72"
 SRC_URI = " \
-	git://github.com/vicharak-in/rockchip-linux-u-boot;protocol=https;branch=master; \
-	git://github.com/vicharak-in/rockchip-linux-rkbin;protocol=https;branch=master;name=rkbin;destsuffix=rkbin; \
+    git://github.com/vicharak-in/vicharak-linux-u-boot.git;protocol=https;branch=master; \
+    git://github.com/vicharak-in/rockchip-linux-rkbin.git;protocol=https;branch=master;name=rkbin;destsuffix=rkbin; \
+    file://defconfig.patch; \
+    file://config.patch; \
 "
 
 SRCREV_FORMAT = "default_rkbin"
@@ -79,19 +90,19 @@ do_compile:append() {
 		done
 
 		# Pack rockchip loader images
-		./make.sh
+        ./make.sh
 	fi
 
 	ln -sf *_loader*.bin "${RK_LOADER_BIN}"
 
 	# Generate idblock image
 	bbnote "${PN}: Generating ${RK_IDBLOCK_IMG} from ${RK_LOADER_BIN}"
-	./rkbin/tools/boot_merger unpack -i "${RK_LOADER_BIN}" -o .
+	${B}/../rkbin/tools/boot_merger unpack -i "${RK_LOADER_BIN}" -o ${B}
 
 	if [ -f FlashHead.bin ];then
 		cat FlashHead.bin FlashData.bin > "${RK_IDBLOCK_IMG}"
 	else
-		./rkbin/tools/mkimage -n "${SOC_FAMILY}" -T rksd -d FlashData.bin \
+		./tools/mkimage -n "${SOC_FAMILY}" -T rksd -d FlashData.bin \
 			"${RK_IDBLOCK_IMG}"
 	fi
 
