@@ -59,11 +59,36 @@ IMAGE_INSTALL:append = " \
 	pm-utils \
 	python3 \
 	python3-pip \
+	libc-dev \
+	make \
+	clang \
+	xserver-xorg \
+	xfce4-session \
+	xfce4-settings \
+	xfce4-terminal \
+	xfce4-calculator-plugin \
+	xfce4-whiskermenu-plugin \
+	xfce4-datetime-plugin \
+	xfce4-datetime-setter \
+	xfce4-screenshooter \
+	xfce4-taskmanager \
+	lxdm \
+	xfwm4 \
+	xfce4-panel \
+	xclock \
+	xfce4-notifyd \
+	xfce4-appfinder \
+	xfdesktop \
+	libxfce4ui \
+	libxfce4util \
+	xfce4-calculator-plugin \
+	xfce4-screensaver \
+	chromium-x11 \
 "
 
 # Enable systemd support
 INIT_MANAGER = "systemd"
-DISTRO_FEATURES:append = " systemd pam "
+DISTRO_FEATURES:append = " systemd pam x11 "
 DISTRO_FEATURES_BACKFILL_CONSIDERED:append = " sysvinit"
 VIRTUAL-RUNTIME_init_manager = "systemd"
 VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"

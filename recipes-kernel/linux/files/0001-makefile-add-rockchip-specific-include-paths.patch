@@ -1,0 +1,13 @@
+diff --git a/drivers/net/wireless/rockchip_wlan/rtl8852bs/Makefile b/drivers/net/wireless/rockchip_wlan/rtl8852bs/Makefile
+index 1daa8ef3593b..2e69c283554f 100644
+--- a/drivers/net/wireless/rockchip_wlan/rtl8852bs/Makefile
++++ b/drivers/net/wireless/rockchip_wlan/rtl8852bs/Makefile
+@@ -24,7 +24,7 @@ EXTRA_CFLAGS += -Wno-date-time	# Fix compile error && warning on gcc 4.9 and lat
+ endif
+ 
+ ifeq ($(CONFIG_ARCH_ROCKCHIP), y)
+-DRV_PATH = $(shell pwd)/$(srctree)/$(src)
++DRV_PATH = $(srctree)/$(src)
+ 
+ EXTRA_CFLAGS += -I$(DRV_PATH)/include
+ EXTRA_CFLAGS += -I$(DRV_PATH)/hal/phydm
