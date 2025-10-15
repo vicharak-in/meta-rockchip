@@ -9,7 +9,7 @@ inherit local-git
 #SRCREV = "938df9cf0910f8f225d85f06b52be7f615857aa8"
 SRCREV = "8685847a83d879cf66ec099c567233df3c832cac"
 SRC_URI = " \
-	git://github.com/vicharak-in/rockchip-linux-kernel-priv.git;protocol=https;branch=vicharak-5.10; \
+	git://github.com/vicharak-in/vicharak-linux-kernel.git;protocol=https;branch=master; \
 	file://${THISDIR}/files/cgroups.cfg \
 	file://${THISDIR}/files/rk3588_axon.cfg \
 	file://${THISDIR}/files/ext4.cfg \
