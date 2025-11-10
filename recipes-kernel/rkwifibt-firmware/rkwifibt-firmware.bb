@@ -12,11 +12,12 @@ SRC_URI = "git://github.com/radxa/rkwifibt.git;protocol=https;branch=develop"
 S = "${WORKDIR}/git"
 
 inherit allarch deploy
-RPROVIDES_${PN}-scripts += "rkwifibit-firmware-rtl8852bs-bt"
+RPROVIDES_${PN}-scripts += "rkwifibt-firmware-rtl8822cs-bt rkwifibit-firmware-rtl8852bs-bt"
 
 do_install() {
     install -d ${D}/lib/firmware/rtlbt/
-   	install -m 0644 ${S}/firmware/realtek/RTL8852BS/* -t ${D}/lib/firmware/rtlbt/
+    install -m 0644 ${S}/firmware/realtek/RTL8822CS/* -t ${D}/lib/firmware/rtlbt/
+    install -m 0644 ${S}/firmware/realtek/RTL8852BS/* -t ${D}/lib/firmware/rtlbt/
     cp -u $(find ${S}/firmware/ -type f) ${D}/lib/firmware/
 #    ln -rsf ${D}/lib/firmware/*rtl*_* ${D}/lib/firmware/rtlbt/
 }
@@ -38,6 +39,7 @@ PACKAGES =+ " \
 	${PN}-rtl8723du-bt \
 	${PN}-rtl8821cu-bt \
 	${PN}-rtl8852bs-bt \
+	${PN}-rtl8822cs-bt \
 "
 
 FILES:${PN}-ap6212a1-wifi = " \
