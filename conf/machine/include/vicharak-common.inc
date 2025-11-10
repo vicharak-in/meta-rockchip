@@ -83,7 +83,6 @@ IMAGE_INSTALL:append = " \
 	libxfce4util \
 	xfce4-calculator-plugin \
 	xfce4-screensaver \
-	chromium-x11 \
 "
 
 # Enable systemd support
