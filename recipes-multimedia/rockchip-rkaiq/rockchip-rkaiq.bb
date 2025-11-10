@@ -17,7 +17,7 @@ inherit local-git
 
 SRCREV = "be96b36bab4c3533f7cd011385539b565578ab8b"
 SRC_URI = " \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;nobranch=1;branch=rkaiq-2023_04_04; \
+	git://github.com/JeffyCN/mirrors.git;protocol=https;nobranch=1;branch=rkaiq-2023_04_04 \
 	file://rkaiq_daemons.sh \
 "
 

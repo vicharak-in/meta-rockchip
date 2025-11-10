@@ -8,7 +8,7 @@ DESCRIPTION = "Rockchip binary tools"
 LICENSE = "LICENSE.rockchip"
 LIC_FILES_CHKSUM = "file://${RKBASE}/licenses/LICENSE.rockchip;md5=d63890e209bf038f44e708bbb13e4ed9"
 SRC_URI = " \
-	git://github.com/vicharak-in/rockchip-linux-rkbin.git;protocol=https;branch=master;name=rkbin;destsuffix=rkbin; \
+	git://github.com/vicharak-in/rockchip-linux-rkbin.git;protocol=https;branch=master;name=rkbin;destsuffix=rkbin \
 	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=tools;name=tools;destsuffix=extra \
 "
 
