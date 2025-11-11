@@ -10,7 +10,7 @@ LIC_FILES_CHKSUM = "file://END_USER_LICENCE_AGREEMENT.txt;md5=3918cc9836ad038c5a
 inherit local-git
 
 SRC_URI = " \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=libmali; \
+	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=libmali \
 "
 SRCREV = "309268f7a34ca0bba0ab94a0b09feb0191c77fb8"
 S = "${WORKDIR}/git"

@@ -14,7 +14,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 inherit local-git
 
 SRC_URI = " \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=linux-rga-multi; \
+	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=linux-rga-multi \
 "
 SRCREV = "c6105b06ade0e5dc7f16924c7f0f5e9dcdb198bc"
 S = "${WORKDIR}/git"

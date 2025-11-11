@@ -12,7 +12,7 @@ RDEPENDS:${PN} = "bash"
 inherit local-git
 
 SRC_URI = " \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=rknpu-fw; \
+	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=rknpu-fw \
 	file://rockchip-npu.sh \
 "
 SRCREV = "2a532b012b5179dd573d8b7f98fc2c51b3046409"
