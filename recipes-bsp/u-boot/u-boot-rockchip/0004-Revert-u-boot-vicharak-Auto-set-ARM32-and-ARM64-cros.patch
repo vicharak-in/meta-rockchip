@@ -1,0 +1,36 @@
+From 078b8f576c9545316a40351faa716d7fe25d1ed7 Mon Sep 17 00:00:00 2001
+From: UtsavBalar1231 <utsavbalar1231@gmail.com>
+Date: Fri, 24 Nov 2023 18:03:56 +0530
+Subject: [PATCH] Revert "u-boot-vicharak: Auto set ARM32 and ARM64
+ cross-compilers in make script"
+
+This reverts commit c86174703578fe30a7dcdb8645c7bf45407f9846.
+---
+ make.sh | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/make.sh b/make.sh
+index ab636d9b1d..ec29150633 100755
+--- a/make.sh
++++ b/make.sh
+@@ -16,17 +16,8 @@ RKBIN_TOOLS=rkbin/tools
+ else
+ RKBIN_TOOLS=../rkbin/tools
+ fi
+-
+-CROSS_COMPILE_ARM32=$(command -v arm-linux-gnueabi-gcc)
+-CROSS_COMPILE_ARM64=$(command -v aarch64-linux-gnu-gcc)
+-
+-if [ -z "${CROSS_COMPILE_ARM32}" ]; then
+ CROSS_COMPILE_ARM32=../prebuilts/gcc/linux-x86/arm/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
+-fi
+-
+-if [ -z "${CROSS_COMPILE_ARM64}" ]; then
+ CROSS_COMPILE_ARM64=../prebuilts/gcc/linux-x86/aarch64/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
+-fi
+ ########################################### User not touch #############################################
+ # Declare global INI file searching index name for every chip, update in select_chip_info()
+ RKCHIP=
+-- 
+2.25.1
+
