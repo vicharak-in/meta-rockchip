@@ -9,7 +9,10 @@ inherit local-git python3-dir
 require recipes-bsp/u-boot/u-boot.inc
 require recipes-bsp/u-boot/u-boot-common.inc
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
 PROVIDES = "virtual/bootloader"
+EXTRA_OEMAKE += "KCFLAGS='-Wno-error'"
 
 DEPENDS += "bc-native dtc-native"
 
@@ -17,11 +20,20 @@ PV = "2017.09"
 
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 
-SRCREV = "a93658f8f45dc0266be21840931131b10c325e03"
+UBOOT_EXTLINUX = "1"
+UBOOT_EXTLINUX_KERNEL_IMAGE = "/boot/Image"
+UBOOT_EXTLINUX_CONSOLE = "1500000n8"
+UBOOT_EXTLINUX_ROOT = "PARTUUID=614e0000-0000-4b53-8000-1d28000054a9"
+UBOOT_EXTLINUX_KERNEL_ARGS:append = " rootfstype=ext4"
+UBOOT_EXTLINUX_FDT = "/boot/rk3588-axon-linux.dtb"
+
+SRCREV = "30500c1b778cf53b0fd21f9b1508d3f94343b428"
 SRCREV_rkbin = "c41b714cacd249e3ef69b2bbe774da5095eefd72"
 SRC_URI = " \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=u-boot; \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;branch=rkbin;name=rkbin;destsuffix=rkbin; \
+    git://github.com/vicharak-in/vicharak-linux-u-boot.git;protocol=https;branch=master; \
+    git://github.com/vicharak-in/rockchip-linux-rkbin.git;protocol=https;branch=master;name=rkbin;destsuffix=rkbin; \
+    file://defconfig.patch; \
+    file://config.patch; \
 "
 
 SRCREV_FORMAT = "default_rkbin"
@@ -46,8 +58,14 @@ do_configure:prepend() {
 	# Remove unneeded stages from make.sh
 	sed -i -e '/^select_tool/d' -e '/^clean/d' -e '/^\t*make/d' -e '/which python2/{n;n;s/exit 1/true/}' ${S}/make.sh
 
-	# Fixup platform(chip) detection
-	sed -i "s/PLAT=.*/PLAT=${RK_SOC_FAMILY}/" ${S}/make.sh
+	if [ "x${RK_ALLOW_PREBUILT_UBOOT}" = "x1" ]; then
+		# Copy prebuilt images
+		if [ -e "${S}/${UBOOT_BINARY}" ]; then
+			bbnote "${PN}: Found prebuilt images."
+			mkdir -p ${B}/prebuilt/
+			mv ${S}/*.bin ${S}/*.img ${B}/prebuilt/
+		fi
+	fi
 
 	[ ! -e "${S}/.config" ] || make -C ${S} mrproper
 
@@ -58,43 +76,38 @@ do_configure:prepend() {
 RK_IDBLOCK_IMG = "idblock.img"
 RK_LOADER_BIN = "loader.bin"
 RK_TRUST_IMG = "trust.img"
-
 UBOOT_BINARY = "uboot.img"
 
 do_compile:append() {
 	cd ${B}
 
-	# Prepare needed files
-	for d in make.sh scripts configs arch/arm/mach-rockchip; do
-		cp -rT ${S}/${d} ${d}
-	done
-
-	if [ -z "${RK_UBOOT_CFG}" ]; then
-		RK_UBOOT_CFG=${RK_SOC_FAMILY}
-	fi
-
-	# Pack Rockchip loader images
-	if [ "${RK_UBOOT_SPL}" ]; then
-		# Use U-Boot's SPL
-		./make.sh ${RK_UBOOT_CFG} --spl-new
-		if ! grep -q "ROCKCHIP_FIT_IMAGE_PACK=y" .config; then
-			# Repack SPL for non-FIT U-Boot
-			./make.sh --spl
-		fi
+	if [ -e "${B}/prebuilt/${UBOOT_BINARY}" ]; then
+		bbnote "${PN}: Using prebuilt images."
+		ln -sf ${B}/prebuilt/*.bin ${B}/prebuilt/*.img ${B}/
 	else
-		# Use Rockchip Miniloader
-		./make.sh ${RK_UBOOT_CFG}
+		# Prepare needed files
+		for d in make.sh rkbin scripts configs arch/arm/mach-rockchip; do
+			cp -rT ${S}/${d} ${d}
+		done
+
+		# Pack rockchip loader images
+        ./make.sh
 	fi
+
 	ln -sf *_loader*.bin "${RK_LOADER_BIN}"
 
 	# Generate idblock image
-	bbnote "${PN}: Generating ${RK_IDBLOCK_IMG}..."
-	if ls *.img | grep -q idblock; then
-		ln -sf *_idblock_*.img "${RK_IDBLOCK_IMG}"
+	bbnote "${PN}: Generating ${RK_IDBLOCK_IMG} from ${RK_LOADER_BIN}"
+	${B}/../rkbin/tools/boot_merger unpack -i "${RK_LOADER_BIN}" -o ${B}
+
+	if [ -f FlashHead.bin ];then
+		cat FlashHead.bin FlashData.bin > "${RK_IDBLOCK_IMG}"
 	else
-		./make.sh --idblock
-		ln -sf idblock.bin "${RK_IDBLOCK_IMG}"
+		./tools/mkimage -n "${SOC_FAMILY}" -T rksd -d FlashData.bin \
+			"${RK_IDBLOCK_IMG}"
 	fi
+
+	cat FlashBoot.bin >> "${RK_IDBLOCK_IMG}"
 }
 
 do_deploy:append() {
