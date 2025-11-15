@@ -5,6 +5,7 @@ Subject: [PATCH] HACK: egl: Prefer using libmali.so.1's Wayland-EGL APIs
 
 The Mali DDK may provide its own version.
 
+Upstream-Status: Inappropriate [BSP-specific hack]
 Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
 ---
  egl/meson.build   |  1 +
