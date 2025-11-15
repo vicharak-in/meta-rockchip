@@ -6,10 +6,10 @@ require linux-rockchip.inc
 
 inherit local-git
 
-SRCREV = "72de5a560a44fb81549f1da325a1b3e323a7aaf7"
+SRCREV = "be156a25abd0879c5f168bad724ad1eb1e2636bf"
 SRC_URI = " \
-	git://github.com/JeffyCN/mirrors.git;protocol=https;nobranch=1;branch=kernel-5.10-2022_01_10; \
-	file://${THISDIR}/files/cgroups.cfg \
+	git://github.com/vicharak-in/vicharak-linux-kernel.git;protocol=https;branch=master; \
+	file://${THISDIR}/files/rk3399_vaaman.cfg \
 "
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
