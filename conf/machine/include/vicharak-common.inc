@@ -39,6 +39,16 @@ MACHINE_EXTRA_RRECOMMENDS:append = " \
 	rk-resize-helper \
 	usbutils \
 	vim \
+	cjson \
+	sqlite3 \
+	libwebsockets \
+	json-c \
+	openssl \
+	dtc \
+	libnewt \
+	libdrm \
+	libdrm-dev \
+	pkg-config \
 "
 
 IMAGE_INSTALL:append = " \
