@@ -48,7 +48,7 @@ MACHINE_EXTRA_RRECOMMENDS:append = " \
 	libnewt \
 	libdrm \
 	libdrm-dev \
-	pkg-config \
+	libsqlite3-dev \
 "
 
 IMAGE_INSTALL:append = " \
