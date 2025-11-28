@@ -6,12 +6,11 @@ require linux-rockchip.inc
 
 inherit local-git
 
-#SRCREV = "938df9cf0910f8f225d85f06b52be7f615857aa8"
-SRCREV = "be156a25abd0879c5f168bad724ad1eb1e2636bf"
+SRCREV = "41eb5c633430ceeda979b9f811ae7bc8ad9ee18f"
+
 SRC_URI = " \
 	git://github.com/vicharak-in/vicharak-linux-kernel.git;protocol=https;branch=master \
 	file://${THISDIR}/files/cgroups.cfg \
-	file://${THISDIR}/files/rk3588_axon.cfg \
 	file://${THISDIR}/files/ext4.cfg \
     file://${THISDIR}/files/0001-makefile-add-rockchip-specific-include-paths.patch \
 "
