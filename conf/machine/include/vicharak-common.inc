@@ -49,6 +49,22 @@ MACHINE_EXTRA_RRECOMMENDS:append = " \
 	libdrm \
 	libdrm-dev \
 	libsqlite3-dev \
+	gcc \
+	g++ \
+	packagegroup-core-buildessential \
+	json-c-dev \
+	cjson-dev \
+	libxml2-dev \
+	libwebsockets-dev \
+	libsqlite3-dev \
+	curl-dev \
+	openssl-staticdev \
+	python3 \
+	coreutils \
+	xinit \
+	twm \
+	xterm \
+	font-misc-misc \
 "
 
 IMAGE_INSTALL:append = " \
