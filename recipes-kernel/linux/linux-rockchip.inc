@@ -5,7 +5,7 @@ inherit python3-dir
 
 DEPENDS:append = " openssl-native lz4-native ${PYTHON_PN}-native"
 
-LINUX_VERSION_EXTENSION ?= "-rockchip-${LINUX_KERNEL_TYPE}"
+LINUX_VERSION_EXTENSION ?= "-${LINUX_KERNEL_TYPE}"
 
 PATCHPATH = "${THISDIR}/${BPN}_${LINUX_VERSION}"
 inherit auto-patch
