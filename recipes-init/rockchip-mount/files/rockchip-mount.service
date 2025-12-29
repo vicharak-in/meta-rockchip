@@ -1,0 +1,11 @@
+[Unit]
+Description=mount boot partition
+DefaultDependencies=no
+After=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/etc/mountboot.sh
+
+[Install]
+WantedBy=multi-user.target
