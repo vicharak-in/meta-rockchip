@@ -29,6 +29,7 @@ do_vicharak_post_rootfs() {
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
 	drm-cursor \
+	dpkg-dev \
 	exfat-utils \
 	fuse-exfat \
 	gptfdisk \
@@ -61,10 +62,9 @@ MACHINE_EXTRA_RRECOMMENDS:append = " \
 	openssl-staticdev \
 	python3 \
 	coreutils \
-	xinit \
-	twm \
-	xterm \
-	font-misc-misc \
+	zlib \
+	zlib-staticdev \
+	lz4 \
 "
 
 IMAGE_INSTALL:append = " \
@@ -75,6 +75,7 @@ IMAGE_INSTALL:append = " \
 	evtest \
 	git \
 	glibc-gconv-utf-16 \
+	glibc-utils \
 	i2c-tools \
 	iperf3 \
 	libgpiod \
@@ -83,6 +84,8 @@ IMAGE_INSTALL:append = " \
 	networkmanager-nmtui \
 	packagegroup-tools-bluetooth \
 	pm-utils \
+	perl \
+	perl-modules \
 	python3 \
 	python3-pip \
 	libc-dev \
@@ -109,6 +112,8 @@ IMAGE_INSTALL:append = " \
 	libxfce4util \
 	xfce4-calculator-plugin \
 	xfce4-screensaver \
+	ncurses-terminfo \
+	ncurses-terminfo-base \
 "
 
 # Enable systemd support
