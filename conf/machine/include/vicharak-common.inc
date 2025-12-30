@@ -29,6 +29,7 @@ do_vicharak_post_rootfs() {
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
 	drm-cursor \
+	dpkg-dev \
 	exfat-utils \
 	fuse-exfat \
 	gptfdisk \
@@ -39,6 +40,31 @@ MACHINE_EXTRA_RRECOMMENDS:append = " \
 	rk-resize-helper \
 	usbutils \
 	vim \
+	cjson \
+	sqlite3 \
+	libwebsockets \
+	json-c \
+	openssl \
+	dtc \
+	libnewt \
+	libdrm \
+	libdrm-dev \
+	libsqlite3-dev \
+	gcc \
+	g++ \
+	packagegroup-core-buildessential \
+	json-c-dev \
+	cjson-dev \
+	libxml2-dev \
+	libwebsockets-dev \
+	libsqlite3-dev \
+	curl-dev \
+	openssl-staticdev \
+	python3 \
+	coreutils \
+	zlib \
+	zlib-staticdev \
+	lz4 \
 "
 
 IMAGE_INSTALL:append = " \
@@ -49,6 +75,7 @@ IMAGE_INSTALL:append = " \
 	evtest \
 	git \
 	glibc-gconv-utf-16 \
+	glibc-utils \
 	i2c-tools \
 	iperf3 \
 	libgpiod \
@@ -57,6 +84,8 @@ IMAGE_INSTALL:append = " \
 	networkmanager-nmtui \
 	packagegroup-tools-bluetooth \
 	pm-utils \
+	perl \
+	perl-modules \
 	python3 \
 	python3-pip \
 	libc-dev \
@@ -83,6 +112,8 @@ IMAGE_INSTALL:append = " \
 	libxfce4util \
 	xfce4-calculator-plugin \
 	xfce4-screensaver \
+	ncurses-terminfo \
+	ncurses-terminfo-base \
 "
 
 # Enable systemd support

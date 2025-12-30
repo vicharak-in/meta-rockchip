@@ -11,6 +11,7 @@ SERIAL_CONSOLES = "1500000;ttyFIQ0"
 KERNEL_IMAGETYPE = "Image"
 KBUILD_DEFCONFIG = "rockchip_linux_defconfig"
 KBUILD_DEFCONFIGS = "rk3588_axon.config"
+SOC_BOARD = "axon"
 
 PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot-rockchip"
 
