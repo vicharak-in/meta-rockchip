@@ -8,5 +8,5 @@ bootloader --ptable gpt
 part --source rawcopy --sourceparams="file=idblock.img" --align 32 --no-table
 part --source rawcopy --sourceparams="file=uboot.img" --part-name uboot --align 8192 --no-table
 part --source rawcopy --sourceparams="file=trust.img" --part-name trust --no-table
-part /boot --source bootimg-partition --fstype vfat --label boot --size 80M
+part /boot --no-fstab-update --use-uuid --source bootimg-partition --fstype vfat --label boot --size 80M
 part / --source rootfs --fstype ${RK_ROOTFS_TYPE} --part-name rootfs --uuid ${RK_ROOTDEV_UUID} --align 8192
