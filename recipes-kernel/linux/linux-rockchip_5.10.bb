@@ -6,8 +6,7 @@ require linux-rockchip.inc
 
 inherit local-git
 
-SRCREV = "60704737f1be3e10d03c6194d53eb5fc2c0d4dcf"
-
+SRCREV = "${AUTOREV}"
 SRC_URI = " \
 	git://github.com/vicharak-in/vicharak-linux-kernel.git;protocol=https;branch=master \
 	file://${THISDIR}/files/cgroups.cfg \
