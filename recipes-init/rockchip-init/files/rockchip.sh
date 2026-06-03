@@ -21,6 +21,7 @@ start() {
     touch "$FIRST_BOOT_FILE"
     
     /usr/sbin/rk-resize-helper start
+    /usr/bin/u-boot-update
     echo "first-boot configured Successfully " > /dev/"${CONSOLE_DEV}"
 }
 
