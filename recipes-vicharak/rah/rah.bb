@@ -28,6 +28,7 @@ do_install() {
     install -d ${D}${bindir}
     install -d ${D}${libdir}
     install -d ${D}${includedir}
+    install -d ${D}${libdir}/firmware
 
     install -m 0644 ${S}/rah/etc/rah/queue ${D}/${sysconfdir}/rah
 
@@ -40,6 +41,12 @@ do_install() {
     # Shared library
     install -m 0755 ${S}/rah/bin/librah.so ${D}${libdir}/librah.so.1.0.0
 
+    # Flasher
+    install -m 0755 ${S}/rah/bin/rah_fw_flasher ${D}${bindir}
+
+    # Firmware
+    install -m 07555 ${S}/rah/firmware/rah_firmware.bin ${D}${libdir}/firmware/
+
     ln -sf librah.so.1.0.0 ${D}${libdir}/librah.so.1
     ln -sf librah.so.1 ${D}${libdir}/librah.so
 
@@ -47,9 +54,19 @@ do_install() {
     install -m 0644 ${S}/rah/rah.service ${D}${systemd_system_unitdir}/rah.service
 }
 
+pkg_postinst_ontarget:${PN}() {
+    #!/bin/sh
+    set -e
+    resolution=$(cat /sys/class/drm/card0-eDP-1/modes | head -n 1)
+
+    if [[ ${resolution} != *"320x240"* ]]; then
+	rah_fw_flasher /usr/lib/firmware/rah_firmware.bin
+	echo "Powering off the device and unplugging the adapter is required to apply the firmware update."
+    fi
+}
 
 FILES:${PN} += "${bindir}/* ${libdir}/*.so* ${includedir}/*"
-FILES:${PN} += "${systemd_system_unitdir}/*.service ${sysconfdir}/rah/*"
-FILES:${PN}-dev += "${libdir}/librah.so"
+FILES:${PN} += "${systemd_system_unitdir}/*.service ${sysconfdir}/rah/* ${base_libdir}/firmware/*"
+FILES:${PN}-dev += "${libdir}/librah.so ${libdir}/firmware/rah_firmware.bin"
 
 REQUIRED_DISTRO_FEATURES = "systemd"
