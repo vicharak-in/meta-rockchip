@@ -23,6 +23,8 @@ start() {
     /usr/sbin/rk-resize-helper start
     /usr/bin/u-boot-update
     echo "first-boot configured Successfully " > /dev/"${CONSOLE_DEV}"
+    sleep 1
+    reboot
 }
 
 stop() {
