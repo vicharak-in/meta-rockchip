@@ -1,12 +1,9 @@
-# Copyright (c) 2019, Fuzhou Rockchip Electronics Co., Ltd
-# Released under the MIT license (see COPYING.MIT for the terms)
-#
-# long-description: Creates a GPT disk image for Rockchip boards
+# Rockchip RK3399 Vaaman - vfat boot partition
 
-# 0~32K: gpt
 bootloader --ptable gpt
 part --source rawcopy --sourceparams="file=idblock.img" --align 32 --no-table
 part --source rawcopy --sourceparams="file=uboot.img" --part-name uboot --align 8192 --no-table
 part --source rawcopy --sourceparams="file=trust.img" --part-name trust --no-table
 part /boot --no-fstab-update --use-uuid --source bootimg-partition --fstype vfat --label boot --size 128M
-part / --source rootfs --fstype ${RK_ROOTFS_TYPE} --part-name rootfs --uuid ${RK_ROOTDEV_UUID} --align 8192
+part / --source rootfs --fstype ext4 --part-name rootfs --uuid 614e0000-0000-4b53-8000-1d28000054a9 --align 8192
+

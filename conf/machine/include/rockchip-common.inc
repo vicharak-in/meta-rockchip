@@ -173,7 +173,7 @@ gen_rkupdateimg() {
 
 	cd "${IMGDEPLOYDIR}"
 
-	RK_IMAGES="loader.bin uboot.env uboot.img trust.img boot.img"
+	RK_IMAGES="loader.bin uboot.env uboot.img trust.img boot.img boot-vfat.img"
 
 	# Create temporary symlinks, because the tool would crash with abs pathes
 	for img in ${RK_IMAGES};do
@@ -195,6 +195,7 @@ gen_rkupdateimg() {
 			uboot-env) IMAGE="uboot.env" ;;
 			backup) echo "backup RESERVED" >> "${OUT}"; continue ;;
 			system|system_[ab]) IMAGE="rootfs.img" ;;
+                        boot) IMAGE="boot-vfat.img" ;;
 			*_a) IMAGE="${NAME%_a}.img" ;;
 			*_b) IMAGE="${NAME%_b}.img" ;;
 			*) IMAGE="${NAME}.img" ;;
