@@ -1,0 +1,3 @@
+[submodule "recipes-vicharak"]
+	path = recipes-vicharak
+	url = https://github.com/vicharak-in/recipes-vicharak
