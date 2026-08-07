@@ -127,9 +127,12 @@ $ sudo upgrade_tool db <IMAGE PATH>/loader.bin
 
 3. Flash the image (wic image or rockchip firmware image)
 
+For RK3588 Based Axon, Use **.wic** image.
+
 ```shell
 $ sudo upgrade_tool wl 0 <IMAGE PATH>/<IMAGE NAME>.wic # For wic image
 ```
+
 
 ```shell
 $ sudo upgrade_tool uf <IMAGE PATH>/update.img # For rockchip firmware image
