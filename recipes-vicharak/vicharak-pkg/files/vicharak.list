@@ -1,0 +1,9 @@
+# YOCTO_VERSION : @YOCTO_VERSION@
+# SOC	        : @SOC@
+# SOC_FAMILY    : @SOC_FAMILY@
+# SOC_BOARD     : @SOC_BOARD@
+
+deb http://pkg.vicharak.in stable-yocto stable-yocto/main
+deb http://pkg.vicharak.in stable-yocto-@YOCTO_VERSION@-rkmain stable-yocto/@YOCTO_VERSION@/@SOC@/rkmain
+deb http://pkg.vicharak.in stable-yocto-@YOCTO_VERSION@-@SOC_FAMILY@-main stable-yocto/@YOCTO_VERSION@/@SOC@/@SOC_FAMILY@/main
+deb http://pkg.vicharak.in stable-yocto-@YOCTO_VERSION@-@SOC_FAMILY@-@SOC_BOARD@ stable-yocto/@YOCTO_VERSION@/@SOC@/@SOC_FAMILY@/@SOC_BOARD@
